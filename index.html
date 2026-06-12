@@ -222,6 +222,31 @@
     transition:transform .35s,opacity .35s;z-index:9999;font-size:13px;}
   .toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
 
+  /* ===== 下單步驟引導（報紙風） ===== */
+  .howto{margin:18px 0 14px;padding:18px 18px 16px;background:rgba(110,36,21,.04);
+    border:1px solid var(--ink);position:relative;}
+  .howto::before{content:"";position:absolute;top:5px;left:5px;right:5px;bottom:5px;
+    border:1px solid rgba(28,24,19,.35);pointer-events:none;}
+  .howto-hd{font-family:'Special Elite';font-size:11px;letter-spacing:3px;color:var(--accent);
+    text-align:center;margin-bottom:14px;text-transform:uppercase;}
+  .howto-hd span{font-family:'Old Standard TT',serif;color:var(--ink);letter-spacing:1px;
+    margin-left:8px;text-transform:none;font-style:italic;}
+  .howto-steps{list-style:none;padding:0;margin:0;display:grid;gap:11px;}
+  .howto-steps li{display:flex;align-items:flex-start;gap:11px;font-family:'Old Standard TT',serif;
+    font-size:13.5px;line-height:1.55;color:var(--ink);}
+  .howto-steps .n{flex-shrink:0;width:24px;height:24px;border:1.5px solid var(--accent);
+    color:var(--accent);background:var(--paper);font-family:'Oswald',sans-serif;font-weight:700;
+    font-size:13px;display:flex;align-items:center;justify-content:center;border-radius:50%;
+    margin-top:1px;}
+  .howto-steps .t{flex:1;}
+  .howto-steps .t b{color:var(--accent);font-weight:700;}
+  .howto-steps .t i{font-size:12px;color:var(--ink-soft);font-style:italic;}
+  .howto-foot{margin-top:14px;padding-top:11px;border-top:1px dotted rgba(28,24,19,.4);
+    text-align:center;font-family:'Old Standard TT',serif;font-size:11.5px;
+    line-height:1.6;color:var(--ink-soft);font-style:italic;}
+  .howto-foot b{font-family:'Oswald',sans-serif;color:var(--accent);letter-spacing:.5px;
+    font-style:normal;font-weight:600;}
+
   /* ===== 確認對話框（報紙風） ===== */
   .confirm-mask{position:fixed;inset:0;background:rgba(28,24,19,.55);backdrop-filter:blur(2px);
     display:none;align-items:center;justify-content:center;z-index:10000;padding:20px;
@@ -363,12 +388,23 @@
         </ul>
       </div>
 
+      <!-- 下單步驟說明（4 步流程） -->
+      <div class="howto">
+        <div class="howto-hd">HOW TO ORDER <span>下單步驟</span></div>
+        <ol class="howto-steps">
+          <li><span class="n">1</span><span class="t">選茶品、甜度、冰度<br><i>可加奶蓋 +$30（僅限 3 分冰／5 分冰）</i></span></li>
+          <li><span class="n">2</span><span class="t">填預訂資料<br><i>取茶日期、時間、姓名</i></span></li>
+          <li><span class="n">3</span><span class="t">按下方<b>「複製訂單 → 前往 LINE」</b><br><i>系統會自動複製並開啟 LINE</i></span></li>
+          <li><span class="n">4</span><span class="t">加好友後，<b>長按訊息欄、選「貼上」</b>送出<br><i>小編收到後會回覆確認</i></span></li>
+        </ol>
+        <div class="howto-foot">若未自動跳轉,請於 LINE 搜尋官方帳號 <b>@121iekum</b> 加好友後貼上預訂單</div>
+      </div>
+
       <div class="order-actions">
-        <button class="pri" id="btnLine">複製預訂單並加 LINE</button>
-        <button id="btnCopy">只複製預訂單</button>
+        <button class="pri" id="btnLine">複製訂單 &rarr; 前往 LINE</button>
+        <button id="btnCopy">只複製訂單</button>
         <button id="btnClear">清空</button>
       </div>
-      <p style="text-align:center;font-family:'Special Elite';font-size:10.5px;letter-spacing:1px;margin-top:12px;color:var(--ink-soft);line-height:1.7;">&#9733; 點選茶品 &middot; 選甜度/冰度 &middot; 可加奶蓋 +$30(僅限 3 分冰/5 分冰) &#9733;<br>填好預訂資料 &rarr; 按「複製預訂單並加 LINE」&rarr; 加好友後貼上送出<br>若未自動跳轉，請於 LINE 搜尋官方帳號 <b style="font-family:'Oswald',sans-serif;color:var(--accent);letter-spacing:.5px;">@121iekum</b> 加好友後貼上預訂單</p>
     </div>
 
     <!-- ===== 第四版: 商品廣告 ===== -->
@@ -424,6 +460,23 @@
   </div>
 </div>
 
+<!-- 跳轉 LINE 前的引導對話框 -->
+<div class="confirm-mask" id="lineMask">
+  <div class="confirm-box" role="dialog" aria-modal="true" aria-labelledby="lineTitle">
+    <div class="confirm-stamp" style="background:#2a8a4f;">COPIED ✓</div>
+    <h3 id="lineTitle">預訂單已複製！</h3>
+    <p style="text-align:left;">
+      <b style="color:var(--ink);">接下來會自動跳到 LINE</b><br>
+      <span style="font-size:13px;color:var(--ink-soft);">加好友後,請在訊息欄位<br>
+      <b style="color:var(--accent);font-size:14.5px;">「長按 → 選『貼上』→ 送出」</b></span>
+    </p>
+    <div class="confirm-btns">
+      <button type="button" id="lineCancel">取消</button>
+      <button type="button" id="lineGo">我知道了,前往 LINE</button>
+    </div>
+  </div>
+</div>
+
 <script>
   const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');}),{threshold:0.1});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
@@ -452,7 +505,6 @@
     {cat:"Fresh Milk Tea 鮮奶茶", en:"Earl Grey Milk Tea",           zh:"伯爵鮮奶茶",       price:60, foam:true},
     {cat:"Fresh Milk Tea 鮮奶茶", en:"Jasmine Green Milk Tea",       zh:"茉莉鮮奶茶",       price:65, foam:true},
     {cat:"Fresh Milk Tea 鮮奶茶", en:"Charcoal Roasted Oolong Milk Tea", zh:"炭焙烏龍鮮奶茶", price:75, foam:true},
-    {cat:"Add-on 加購", en:"Milk Foam", zh:"奶蓋", price:30, foam:false, addon:true},
   ];
   // 甜度/冰度選項 (照菜單)
   const SWEET=["無糖","1分甜","3分甜","5分甜","7分甜"];
@@ -662,13 +714,26 @@ ${l.join('\n')}
     return null;
   }
 
+  // ===== 跳轉 LINE 前的引導對話框 =====
+  const lineMask=document.getElementById('lineMask');
+  function closeLineDlg(){lineMask.classList.remove('show');}
+  document.getElementById('lineCancel').onclick=closeLineDlg;
+  lineMask.addEventListener('click',e=>{if(e.target===lineMask)closeLineDlg();});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&lineMask.classList.contains('show'))closeLineDlg();});
+  document.getElementById('lineGo').onclick=()=>{closeLineDlg();window.open(LINE_OA,'_blank');};
+
   document.getElementById('btnLine').onclick=async()=>{
     const err=validateBooking();
     if(err){toast(err);return;}
     const t=orderText();
     const ok=await copyText(t);
-    toast(ok?'預訂單已複製！加好友後貼上即可送出 ☕':'已開啟 LINE，請手動把預訂單貼上送出 ☕');
-    setTimeout(()=>{window.open(LINE_OA,'_blank');},900);
+    if(!ok){
+      // 複製失敗時：直接給明確指示，不要跳引導頁(會更混亂)
+      toast('複製失敗，請長按訂單文字手動複製後再加 LINE');
+      return;
+    }
+    // 複製成功 → 顯示引導對話框，等客人按「我知道了」才開 LINE
+    lineMask.classList.add('show');
   };
   document.getElementById('btnCopy').onclick=async()=>{
     const err=validateBooking();
