@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>FEEDO 菲多 · 休息日後台</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600&family=Special+Elite&display=swap');
+  :root{
+    --ink:#1a1a1a; --ink-soft:#555; --paper:#f4f1ea; --line:#1a1a1a;
+    --accent:#9a2b1f; --closed:#9a2b1f;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:'Oswald',"Noto Sans TC",sans-serif;line-height:1.6;}
+  .wrap{max-width:560px;margin:0 auto;padding:24px 18px 64px;}
+  header{border-bottom:3px double var(--line);padding-bottom:12px;margin-bottom:20px;text-align:center;}
+  header .ed{font-family:'Special Elite';font-size:11px;letter-spacing:2px;color:var(--ink-soft);}
+  header h1{font-size:24px;letter-spacing:1px;margin:6px 0 0;}
+  /* 登入 */
+  #login{text-align:center;padding:40px 0;}
+  #login input{font-family:'Oswald';font-size:18px;padding:10px 14px;border:2px solid var(--line);
+    background:#fff;text-align:center;letter-spacing:2px;width:220px;border-radius:0;}
+  .btn{font-family:'Oswald';font-size:15px;letter-spacing:1px;padding:11px 22px;border:2px solid var(--line);
+    background:var(--ink);color:var(--paper);cursor:pointer;border-radius:0;margin-top:14px;}
+  .btn:hover{background:var(--accent);border-color:var(--accent);}
+  .btn.ghost{background:transparent;color:var(--ink);}
+  .btn.ghost:hover{background:var(--ink);color:var(--paper);}
+  .hint{font-size:12px;color:var(--ink-soft);margin-top:10px;font-family:'Special Elite';}
+  /* 月曆 */
+  #app{display:none;}
+  .calbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+  .calbar button{font-family:'Oswald';font-size:18px;width:40px;height:40px;border:2px solid var(--line);
+    background:#fff;cursor:pointer;}
+  .calbar .mtitle{font-size:18px;letter-spacing:1px;font-weight:600;}
+  table.cal{width:100%;border-collapse:collapse;table-layout:fixed;}
+  table.cal th{font-size:12px;color:var(--ink-soft);padding:6px 0;font-weight:400;}
+  table.cal td{height:46px;text-align:center;vertical-align:middle;border:1px solid #ddd;
+    cursor:pointer;font-size:15px;position:relative;user-select:none;}
+  td.empty{cursor:default;background:repeating-linear-gradient(45deg,#eee,#eee 4px,#f4f1ea 4px,#f4f1ea 8px);}
+  td.past{color:#bbb;cursor:not-allowed;background:#faf8f3;}
+  td.weekly{background:#e9e3d7;color:#999;cursor:not-allowed;}
+  td.weekly::after{content:'公休';position:absolute;bottom:2px;left:0;right:0;font-size:8px;color:#999;}
+  td.holiday{background:var(--closed);color:#fff;font-weight:600;}
+  td.holiday::after{content:'休';position:absolute;bottom:2px;left:0;right:0;font-size:8px;color:#fff;}
+  td.today{outline:2px solid var(--accent);outline-offset:-2px;}
+  .legend{display:flex;gap:16px;justify-content:center;margin:16px 0;font-size:12px;color:var(--ink-soft);}
+  .legend span{display:inline-flex;align-items:center;gap:5px;}
+  .sw{width:14px;height:14px;display:inline-block;border:1px solid #ccc;}
+  .list{margin-top:18px;border-top:2px solid var(--line);padding-top:14px;}
+  .list h3{font-size:14px;letter-spacing:1px;margin:0 0 10px;}
+  .chip{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--line);
+    padding:6px 10px;margin:0 8px 8px 0;font-size:13px;font-family:'Special Elite';}
+  .chip b{font-family:'Oswald';}
+  .chip .x{cursor:pointer;color:var(--accent);font-weight:700;font-size:16px;line-height:1;}
+  .empty-list{color:var(--ink-soft);font-size:13px;font-family:'Special Elite';}
+  .status{text-align:center;font-size:12px;color:var(--ink-soft);margin-top:18px;min-height:18px;font-family:'Special Elite';}
+  .status.ok{color:#2c7a3f;} .status.err{color:var(--accent);}
+  .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
+  .topbar .who{font-size:12px;color:var(--ink-soft);font-family:'Special Elite';}
+  .topbar a{font-size:12px;color:var(--accent);cursor:pointer;text-decoration:underline;}
+  .spin{display:inline-block;width:13px;height:13px;border:2px solid #ccc;border-top-color:var(--accent);
+    border-radius:50%;animation:sp .7s linear infinite;vertical-align:-2px;}
+  @keyframes sp{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="ed">FEEDO GAZETTE · STAFF ONLY</div>
+    <h1>休息日後台</h1>
+  </header>
+
+  <!-- 登入畫面 -->
+  <div id="login">
+    <p style="font-size:14px;color:var(--ink-soft);">請輸入管理密碼</p>
+    <input id="pw" type="password" inputmode="numeric" placeholder="••••••" autocomplete="off">
+    <br>
+    <button class="btn" id="loginBtn">登入</button>
+    <div class="hint" id="loginHint"></div>
+  </div>
+
+  <!-- 主畫面 -->
+  <div id="app">
+    <div class="topbar">
+      <span class="who">已登入 · 點日期切換店休</span>
+      <a id="logout">登出</a>
+    </div>
+
+    <div class="calbar">
+      <button id="prev">‹</button>
+      <span class="mtitle" id="mtitle">—</span>
+      <button id="next">›</button>
+    </div>
+    <table class="cal">
+      <thead><tr><th>日</th><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th></tr></thead>
+      <tbody id="calBody"></tbody>
+    </table>
+
+    <div class="legend">
+      <span><i class="sw" style="background:var(--closed)"></i>臨時店休</span>
+      <span><i class="sw" style="background:#e9e3d7"></i>每週公休</span>
+      <span><i class="sw" style="outline:2px solid var(--accent);outline-offset:-2px"></i>今天</span>
+    </div>
+
+    <div class="list">
+      <h3>目前設定的臨時店休</h3>
+      <div id="chips"><span class="empty-list">尚無臨時店休</span></div>
+    </div>
+
+    <div class="status" id="status"></div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   ★★★ 設定區 ★★★
+   把下面換成你部署 Apps Script 後拿到的網址：
+   ============================================================ */
+const API = "https://script.google.com/macros/s/AKfycbyBcqocUhu5vBcmpCrS3lHwlTEfVcWtc9YQK3-t3svAMVODMBfs3l_X9PoR6tBGPAiX/exec";
+
+/* 固定每週公休（與訂購頁一致；0=日…6=六）。純顯示用，不可在此勾改。 */
+const WEEKLY_CLOSED = [2];
+
+let token = "";            // 登入後保存密碼，後續寫入用
+let holidays = [];         // ['YYYY-MM-DD', ...]
+let view = new Date();     // 目前顯示的月份
+view.setDate(1);
+
+const $ = id => document.getElementById(id);
+const pad = n => String(n).padStart(2,'0');
+const ymd = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const todayStr = ymd(new Date());
+
+// ---------- 登入 ----------
+$('loginBtn').onclick = doLogin;
+$('pw').addEventListener('keydown', e=>{ if(e.key==='Enter') doLogin(); });
+
+async function doLogin(){
+  const pw = $('pw').value.trim();
+  if(!pw){ $('loginHint').textContent='請輸入密碼'; return; }
+  $('loginHint').innerHTML = '<span class="spin"></span> 驗證中…';
+  try{
+    const r = await fetch(`${API}?action=list&pw=${encodeURIComponent(pw)}`, {cache:'no-store'});
+    const j = await r.json();
+    if(j.error==='auth'){ $('loginHint').textContent='密碼錯誤'; return; }
+    token = pw;
+    holidays = Array.isArray(j.holidays)? j.holidays : [];
+    $('login').style.display='none';
+    $('app').style.display='block';
+    render();
+  }catch(e){
+    $('loginHint').textContent='連線失敗，請確認後端網址';
+  }
+}
+
+$('logout').onclick = ()=>{ token=''; $('pw').value=''; $('loginHint').textContent='';
+  $('app').style.display='none'; $('login').style.display='block'; };
+
+// ---------- 月曆 ----------
+$('prev').onclick = ()=>{ view.setMonth(view.getMonth()-1); render(); };
+$('next').onclick = ()=>{ view.setMonth(view.getMonth()+1); render(); };
+
+function render(){
+  $('mtitle').textContent = `${view.getFullYear()} 年 ${view.getMonth()+1} 月`;
+  const y=view.getFullYear(), m=view.getMonth();
+  const first=new Date(y,m,1).getDay();
+  const days=new Date(y,m+1,0).getDate();
+  let html='', cell=0, row='<tr>';
+  for(let i=0;i<first;i++){ row+='<td class="empty"></td>'; cell++; }
+  for(let d=1;d<=days;d++){
+    const dateObj=new Date(y,m,d);
+    const s=ymd(dateObj);
+    let cls=[];
+    if(WEEKLY_CLOSED.includes(dateObj.getDay())) cls.push('weekly');
+    else if(holidays.includes(s)) cls.push('holiday');
+    if(s<todayStr) cls.push('past');
+    if(s===todayStr) cls.push('today');
+    const clickable = !cls.includes('weekly') && !cls.includes('past');
+    row+=`<td class="${cls.join(' ')}" ${clickable?`data-d="${s}"`:''}>${d}</td>`;
+    cell++;
+    if(cell%7===0){ row+='</tr>'; html+=row; row='<tr>'; }
+  }
+  if(cell%7!==0){ while(cell%7!==0){ row+='<td class="empty"></td>'; cell++; } row+='</tr>'; html+=row; }
+  $('calBody').innerHTML=html;
+  $('calBody').querySelectorAll('td[data-d]').forEach(td=>{
+    td.onclick=()=>toggle(td.dataset.d);
+  });
+  renderChips();
+}
+
+function renderChips(){
+  const sorted=[...holidays].sort();
+  if(!sorted.length){ $('chips').innerHTML='<span class="empty-list">尚無臨時店休</span>'; return; }
+  $('chips').innerHTML = sorted.map(s=>{
+    const d=new Date(s+'T00:00:00');
+    const wk=['日','一','二','三','四','五','六'][d.getDay()];
+    return `<span class="chip"><b>${d.getMonth()+1}/${d.getDate()}</b>（${wk}）<span class="x" data-d="${s}">×</span></span>`;
+  }).join('');
+  $('chips').querySelectorAll('.x').forEach(x=> x.onclick=()=>toggle(x.dataset.d));
+}
+
+// ---------- 切換 + 寫回後端 ----------
+let busy=false;
+async function toggle(s){
+  if(busy) return;
+  const adding = !holidays.includes(s);
+  // 樂觀更新 UI
+  if(adding) holidays.push(s); else holidays=holidays.filter(x=>x!==s);
+  render();
+  setStatus('<span class="spin"></span> 儲存中…','');
+  busy=true;
+  try{
+    const r=await fetch(API,{
+      method:'POST',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body:JSON.stringify({action: adding?'add':'remove', date:s, pw:token})
+    });
+    const j=await r.json();
+    if(j.error){ throw new Error(j.error); }
+    holidays = Array.isArray(j.holidays)? j.holidays : holidays;
+    render();
+    setStatus(adding?`✓ 已設定 ${s} 店休`:`✓ 已取消 ${s} 店休`,'ok');
+  }catch(e){
+    // 回滾
+    if(adding) holidays=holidays.filter(x=>x!==s); else holidays.push(s);
+    render();
+    setStatus('儲存失敗，請重試','err');
+  }finally{ busy=false; }
+}
+
+function setStatus(msg,kind){
+  const el=$('status'); el.className='status '+(kind||''); el.innerHTML=msg;
+  if(kind==='ok'){ clearTimeout(window._st); window._st=setTimeout(()=>{el.innerHTML='';el.className='status';},2500); }
+}
+</script>
+</body>
+</html>
