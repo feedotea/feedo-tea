@@ -249,6 +249,29 @@
   #confirmOk{background:var(--accent);color:var(--paper);border-color:var(--accent);}
   #confirmOk:hover{background:var(--ink);border-color:var(--ink);}
 
+  /* 下單步驟 */
+  .order-steps{margin-top:14px;border:1px solid var(--ink);padding:14px 16px 12px;position:relative;background:var(--paper);}
+  .steps-title{font-family:'Old Standard TT',serif;font-weight:700;font-size:15px;letter-spacing:2px;
+    text-align:center;text-transform:uppercase;border-bottom:1px solid var(--ink);padding-bottom:7px;margin-bottom:10px;}
+  .steps-title-zh{font-family:'Old Standard TT',serif;font-size:13px;letter-spacing:3px;margin-left:10px;color:var(--ink-soft);}
+  .steps-list{list-style:none;margin:0;padding:0;}
+  .steps-list li{display:flex;align-items:flex-start;gap:9px;padding:7px 0;}
+  .steps-list li+li{border-top:1px dashed var(--ink-soft);}
+  .step-no{font-size:17px;color:var(--accent);flex:0 0 auto;line-height:1.2;}
+  .step-body{display:flex;flex-direction:column;gap:1px;}
+  .step-main{font-family:'Special Elite';font-size:13px;line-height:1.45;color:var(--ink);}
+  .step-sub{font-family:'Special Elite';font-size:10.5px;line-height:1.45;color:var(--ink-soft);letter-spacing:.3px;}
+  .step-main b{font-family:'Special Elite';color:var(--accent);}
+  .steps-note{font-family:'Special Elite';font-size:10px;letter-spacing:.5px;text-align:center;
+    color:var(--ink-soft);line-height:1.6;margin:10px 0 0;padding-top:8px;border-top:1px solid var(--ink-soft);}
+
+  /* 跳轉前確認頁 */
+  .gate-check{font-family:'Old Standard TT',serif;font-size:34px;color:var(--accent);text-align:center;line-height:1;margin-bottom:4px;}
+  .gate-paste{display:inline-block;border:1px solid var(--accent);color:var(--accent);
+    font-family:'Special Elite';font-size:12px;letter-spacing:1px;padding:2px 8px;margin:0 2px;}
+  #gateOk{background:var(--accent);color:var(--paper);border-color:var(--accent);}
+  #gateOk:hover{background:var(--ink);border-color:var(--ink);}
+
   .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s;}
   .reveal.in{opacity:1;transform:none;}
 </style>
@@ -345,6 +368,7 @@
           </select>
         </div>
         <div class="bfield"><label>取茶人姓名</label><input id="bName" type="text" placeholder="您的姓名"></div>
+        <div class="bfield"><label>聯絡電話</label><input id="bPhone" type="tel" inputmode="numeric" placeholder="0900000000"></div>
         <div class="notice">
           訂單請於<b>取茶前一天 17:00 前</b>送出。<br>
           如欲更改預訂內容,煩請<b>「更新整筆訂單」</b>重新傳送,小編以最新收到的訊息為主,謝謝您!<br>
@@ -364,11 +388,20 @@
       </div>
 
       <div class="order-actions">
-        <button class="pri" id="btnLine">複製預訂單並加 LINE</button>
+        <button class="pri" id="btnLine">複製訂單 &rarr; 前往 LINE 貼上</button>
         <button id="btnCopy">只複製預訂單</button>
         <button id="btnClear">清空</button>
       </div>
-      <p style="text-align:center;font-family:'Special Elite';font-size:10.5px;letter-spacing:1px;margin-top:12px;color:var(--ink-soft);line-height:1.7;">&#9733; 點選茶品 &middot; 選甜度/冰度 &middot; 可加奶蓋 +$30(僅限 3 分冰/5 分冰) &#9733;<br>填好預訂資料 &rarr; 按「複製預訂單並加 LINE」&rarr; 加好友後貼上送出<br>若未自動跳轉，請於 LINE 搜尋官方帳號 <b style="font-family:'Oswald',sans-serif;color:var(--accent);letter-spacing:.5px;">@121iekum</b> 加好友後貼上預訂單</p>
+      <div class="order-steps">
+        <div class="steps-title">How to Order<span class="steps-title-zh">下單步驟</span></div>
+        <ol class="steps-list">
+          <li><span class="step-no">&#10102;</span><span class="step-body"><span class="step-main">選茶品、甜度、冰度</span><span class="step-sub">可加奶蓋 +$30（僅限 3 分冰／5 分冰）</span></span></li>
+          <li><span class="step-no">&#10103;</span><span class="step-body"><span class="step-main">填預訂資料</span><span class="step-sub">取茶日期、時間、姓名、電話</span></span></li>
+          <li><span class="step-no">&#10104;</span><span class="step-body"><span class="step-main">按下方「複製訂單 &rarr; 前往 LINE」</span><span class="step-sub">系統會自動複製並開啟 LINE</span></span></li>
+          <li><span class="step-no">&#10105;</span><span class="step-body"><span class="step-main">加好友後，<b>長按訊息欄、選「貼上」</b>送出</span><span class="step-sub">小編收到後會回覆確認</span></span></li>
+        </ol>
+        <p class="steps-note">若未自動跳轉，請於 LINE 搜尋官方帳號 <b style="font-family:'Oswald',sans-serif;color:var(--accent);letter-spacing:.5px;">@121iekum</b> 加好友後貼上預訂單</p>
+      </div>
     </div>
 
     <!-- ===== 第四版: 商品廣告 ===== -->
@@ -420,6 +453,19 @@
     <div class="confirm-btns">
       <button type="button" id="confirmCancel">取消</button>
       <button type="button" id="confirmOk">確定清空</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 跳轉前確認頁 ===== -->
+<div class="confirm-mask" id="gateMask">
+  <div class="confirm-box" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
+    <div class="confirm-stamp">LINE</div>
+    <div class="gate-check">&#10003;</div>
+    <h3 id="gateTitle">預訂單已複製</h3>
+    <p>接下來會自動跳到 LINE。<br>加好友後，請在訊息欄位<br><span class="gate-paste">長按 &rarr; 貼上</span>送出即可。</p>
+    <div class="confirm-btns">
+      <button type="button" id="gateOk">我知道了，繼續</button>
     </div>
   </div>
 </div>
@@ -488,7 +534,6 @@
     {cat:"Fresh Milk Tea 鮮奶茶", en:"Earl Grey Milk Tea",           zh:"伯爵鮮奶茶",       price:60, foam:true},
     {cat:"Fresh Milk Tea 鮮奶茶", en:"Jasmine Green Milk Tea",       zh:"茉莉鮮奶茶",       price:65, foam:true},
     {cat:"Fresh Milk Tea 鮮奶茶", en:"Charcoal Roasted Oolong Milk Tea", zh:"炭焙烏龍鮮奶茶", price:75, foam:true},
-    {cat:"Add-on 加購", en:"Milk Foam", zh:"奶蓋", price:30, foam:false, addon:true},
   ];
   // 甜度/冰度選項 (照菜單)
   const SWEET=["無糖","1分甜","3分甜","5分甜","7分甜"];
@@ -649,6 +694,7 @@
 取茶日期：${fmtDate()}
 取茶時間：${v('bTime')}
 取茶人姓名：${v('bName')}
+聯絡電話：${v('bPhone')}
 ----------------
 預訂品項：
 ${l.join('\n')}
@@ -686,9 +732,13 @@ ${l.join('\n')}
     const dEl=document.getElementById('bDate');
     const tEl=document.getElementById('bTime');
     const nEl=document.getElementById('bName');
+    const pEl=document.getElementById('bPhone');
     if(!dEl.value) return '請選擇取茶日期 📅';
     if(!tEl.value) return '請選擇取茶時間 🕚';
     if(!nEl.value.trim()) return '請填寫取茶人姓名 🙋';
+    const phone=pEl.value.replace(/[\s-]/g,'');
+    if(!phone) return '請填寫聯絡電話 📱';
+    if(!/^09\d{8}$/.test(phone)) return '電話格式有誤，請填 09 開頭共 10 碼 📱';
     // 收單規則：必須在「取茶前一天 17:00」之前下單
     const pick=new Date(dEl.value+'T00:00:00');
     const closed=isClosedDate(pick);
@@ -705,9 +755,19 @@ ${l.join('\n')}
     if(err){toast(err);return;}
     const t=orderText();
     const ok=await copyText(t);
-    toast(ok?'預訂單已複製！加好友後貼上即可送出 ☕':'已開啟 LINE，請手動把預訂單貼上送出 ☕');
-    setTimeout(()=>{window.open(LINE_OA,'_blank');},900);
+    if(!ok){toast('已開啟 LINE，請手動把預訂單貼上送出 ☕');window.open(LINE_OA,'_blank');return;}
+    openGate();
   };
+  // ===== 跳轉前確認頁 =====
+  const gateMask=document.getElementById('gateMask');
+  function openGate(){gateMask.classList.add('show');}
+  function closeGate(){gateMask.classList.remove('show');}
+  document.getElementById('gateOk').onclick=()=>{
+    closeGate();
+    window.open(LINE_OA,'_blank');
+  };
+  gateMask.addEventListener('click',e=>{if(e.target===gateMask){closeGate();window.open(LINE_OA,'_blank');}});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&gateMask.classList.contains('show'))closeGate();});
   document.getElementById('btnCopy').onclick=async()=>{
     const err=validateBooking();
     if(err){toast(err);return;}
