@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Feedo Gazette — 菲多的故事與風味選茶</title>
+<meta name="description" content="FEEDO 菲多的品牌故事，以及三個問題找到你的台灣烏龍：Tea Finder 風味選茶。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Oswald:wght@500;600;700&family=Special+Elite&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=20260914">
+</head>
+<body>
+<div class="gazette">
+
+  <nav>
+    <a href="./">Order 點單</a>
+    <a href="./#delivery">Delivery</a>
+    <a href="#top" class="here">Our Story</a>
+    <a href="#finder" class="feature">Find Your Brew</a>
+    <a href="#visit">Find Us</a>
+  </nav>
+
+  <div class="pad" id="top">
+    <!-- 報頭 -->
+    <div class="masthead-top">
+      <span>Vol. MMXXVI &middot; No. 1</span>
+      <span>&#9733; Tainan Edition &#9733;</span>
+      <span>Price: One Warm Cup</span>
+    </div>
+    <div class="masthead">
+      <h1>The Feedo Gazette</h1>
+      <div class="sub">&mdash; Tea &middot; Craft &middot; Curated Living Since The First Brew &mdash;</div>
+      <div class="mast-dog" id="mastDog" title="汪!"><img src="images/feedo-dog.png" alt="Feedo dog"></div>
+    </div>
+    <div class="dateline">
+      <span>West Central District, Tainan</span>
+      <span>&#9733; &#9733; &#9733;</span>
+      <span>Weather: Warm, with a chance of cream foam</span>
+    </div>
+
+    <!-- 頭版頭條 -->
+    <div class="lead">
+      <div class="kicker">Local Hero &middot; Exclusive Report</div>
+      <h2>Spotted Pup Pours<br>The Town's Finest Tea</h2>
+      <div class="deck">Beloved Feedo mascot greets every guest at the door &mdash; apron on, tray in paw, tail never still</div>
+
+      <hr class="rule2"><hr class="rule1">
+
+      <figure class="hero-fig">
+        <div class="imgwrap"><img src="images/hero-mascot.jpg" alt="Feedo mascot at the door"></div>
+        <figcaption><b>AT YOUR SERVICE:</b> The Feedo mascot stands at the shop door, tray in paw, ready to welcome every guest. <i>(Staff Photographer)</i></figcaption>
+      </figure>
+
+      <div class="lead-cols">
+        <p>In a quiet corner of Tainan that smells faintly of roasted tea and old timber, a most unusual host welcomes every guest through the door. The museum's spotted dog &mdash; apron crisp, tray steady &mdash; has become the friendly face the whole neighborhood adores.</p>
+        <p>Witnesses report lines forming before opening. &ldquo;I came for the tea and stayed for the welcome,&rdquo; said one regular. The mascot simply wags in reply, offering a freshly poured cup.</p>
+        <p class="pull">&ldquo;Every tea leaf remembers the heat.&rdquo;</p>
+        <p>The method, it seems, is a closely guarded secret: fresh milk, roasted oolong, and a generous swirl of cream whipped into a snowy cap that stands proud above each glass.</p>
+        <p>Health inspectors who visited the premises left smiling. &ldquo;Spotless,&rdquo; one noted, &ldquo;in every sense of the word.&rdquo; The kettle, they confirmed, is always warm.</p>
+      </div>
+
+      <!-- 轉版指引 -->
+      <div class="turn-to">
+        <hr>
+        <a href="#finder">Continued on Page Two &mdash; Find Your Brew</a>
+        <span class="arrow">&#8595;</span>
+      </div>
+    </div>
+
+
+    <!-- ===== 第二版: 選茶風味地圖 ===== -->
+    <div class="section reveal" id="finder">
+      <div class="sec-banner"><div class="ed">Page Two &middot; Find Your Brew</div><h3>Tea Finder</h3></div>
+<section class="intro">
+    <p>台灣烏龍的差異，幾乎都藏在兩件事裡：<b>發酵與焙火的深淺</b>，以及<b>香氣的走向</b>。<br>跟著三個提問走一遍，你會更懂自己杯裡的茶。</p>
+    <p class="en">Two questions decide almost everything — how dark it's fired, and which way it smells.</p>
+  </section>
+
+  <section class="stage">
+    <div class="stepbar" id="stepbar"></div>
+    <div id="quiz"></div>
+
+    <!-- RESULT -->
+    <div class="result" id="result">
+      <p class="r-eyebrow">Your Tea Profile</p>
+      <div class="r-card">
+        <div class="r-head">
+          <p class="r-roast" id="r-roast"></p>
+          <h2 class="r-name" id="r-name"></h2>
+          <p class="r-en" id="r-en"></p>
+        </div>
+        <div class="r-body">
+          <p class="r-tagline" id="r-tagline"></p>
+          <dl class="r-specs" id="r-specs"></dl>
+          <div class="r-notes">
+            <p class="lab">Flavor Notes · 風味關鍵字</p>
+            <div class="chips" id="r-chips"></div>
+          </div>
+
+          <div class="r-map">
+            <p class="lab">Flavor Map · 你的落點</p>
+            <p class="map-hint">台灣烏龍是一片連續的光譜 — 橫軸是焙火深淺，縱軸是香氣走向。你的茶亮起來了。</p>
+            <svg id="map-svg" viewBox="0 0 320 280" role="img" aria-label="台灣烏龍風味地圖"></svg>
+          </div>
+
+          <p class="r-for" id="r-for"></p>
+          <div class="r-actions">
+            <a class="btn" id="r-menu" href="./#menu">去點這杯 →</a>
+            <button class="btn ghost" id="r-restart">重新探索</button>
+          </div>
+          <div class="alt">
+            <p class="lab">風味相近 · 也值得一試</p>
+            <div class="alt-row" id="r-alt"></div>
+          </div>
+
+          <div class="floral">
+            <p class="floral-lab">Beyond Taiwan · 花香另選</p>
+            <p class="floral-intro">這兩支走的是花香路線，但不是台灣茶 — 想換個清爽心情時的選擇。</p>
+            <div class="floral-grid" id="r-floral"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <p class="moby">Curated by Moby — FEEDO MUSEUM</p>
+    <p class="meta">A flavor exploration tool · not a personality quiz</p>
+    <p class="meta" style="margin-top:6px"><a href="https://www.feedo.com.tw/tea-menu" target="_blank" rel="noopener">feedo.com.tw / tea-menu</a></p>
+  </footer>
+    </div>
+
+    <!-- ===== 前往點單 ===== -->
+    <div class="section reveal order-cta">
+      <div class="sec-banner"><div class="ed">Page Three &middot; Pre-Order</div><h3>Ready To Order?</h3></div>
+      <p class="cta-deck">前一日預訂門市自取、本週預約外送；公司團體也能發起揪團，讓同事各自用手機點。</p>
+      <div class="cta-btns">
+        <a class="cta pri" href="./#menu">前往點單 &rarr;</a>
+        <a class="cta" href="./#delivery">預約外送</a>
+      </div>
+    </div>
+    <!-- ===== 店家資訊 ===== -->
+    <div class="section reveal" id="visit">
+      <div class="sec-banner"><div class="ed">Call Me &middot; Come Say Hello</div><h3>Find Us</h3></div>
+      <div class="info-cols">
+        <div class="info-c">
+          <h4>The Office</h4>
+          <div class="irow"><span class="k">Address</span><span>NO24-1, You'ai St, West Central District, Tainan City</span></div>
+          <div class="irow"><span class="k">Tel</span><span><a href="tel:+88662208282" style="color:inherit;text-decoration:none;">06-2208282</a></span></div>
+          <a href="https://www.instagram.com/feedomuseum" class="ig-link" target="_blank" rel="noopener">@feedomuseum &rarr;</a>
+        </div>
+        <div class="info-c">
+          <h4>Hours of Press</h4>
+          <div class="hrow"><span>每日 Daily</span><span>11:00 &ndash; 18:00</span></div>
+          <div class="hrow"><span>公休 Closed</span><span>每週二 Tuesdays</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="colophon">&#9733; Printed With Pride At The Feedo Press &middot; West Central District, Tainan &middot; Every Tea Leaf Remembers The Heat &#9733;</div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');}),{threshold:0.1});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // 點報頭的狗 → 趣味汪叫 + 搖一下
+  const md=document.getElementById('mastDog');
+  if(md){md.addEventListener('click',()=>{const img=md.querySelector('img');img.style.animation='none';void img.offsetWidth;img.style.animation='dogTilt .6s ease';showToast('\u6c6a\uff01\u6b61\u8fce\u5149\u81e8\u83f2\u591a \u2615');});}
+  function showToast(m){const el=document.getElementById('toast');el.textContent=m;el.classList.add('show');clearTimeout(window._tt);window._tt=setTimeout(()=>el.classList.remove('show'),2000);}
+</script>
+<script>
+
+/* ---------- Tea database (from FEEDO menu) ---------- */
+const TEAS = {
+  qingxin: {
+    name:"青心烏龍", en:"High-Mountain Oolong", roast:"未焙火 · 清香型",
+    tagline:"來自 1250 公尺高山的清冷花香，尾韻乾淨回甘。山頭氣鮮明，湯質滑順、富果膠，喉韻悠長而純淨。",
+    specs:[["發酵","輕發酵"],["焙火","無 / 極輕"],["茶湯","蜜綠透亮"],["產地","獅頭高山"]],
+    chips:["高山花香","山頭氣","果膠滑順","純淨甘甜"],
+    forwho:"高山韻底，留給願意慢下來的人。",
+    fire:8, aroma:15, soup:"#cdd97a"
+  },
+  sijichun: {
+    name:"四季春烏龍", en:"Four-Season Spring", roast:"低溫慢焙 · 花香型",
+    tagline:"梔子與野薑花，明亮奔放的白色花香。比賽級覆火工藝去青留香，草青味昇華成焦糖般的細緻甜韻。",
+    specs:[["發酵","輕發酵"],["焙火","低溫慢焙"],["茶湯","金黃明亮"],["工法","比賽工法"]],
+    chips:["百花奔放","梔子花","焦糖甜韻","清爽滑順"],
+    forwho:"想醒醒腦的你 — 花香奔放、喚醒感官。",
+    fire:45, aroma:32, soup:"#e3c558"
+  },
+  dongding: {
+    name:"凍頂烏龍", en:"Dong Ding Oolong", roast:"輕焙 · 清揚型",
+    tagline:"清雅花香中帶一縷焙韻，湯色金黃明亮。中發酵配合輕焙，喉韻溫潤，口感比青心多一分熟甜。",
+    specs:[["發酵","中發酵"],["焙火","輕焙"],["茶湯","金黃明亮"],["形","半球形"]],
+    chips:["清雅花香","一縷焙韻","溫潤回甘","湯色金黃"],
+    forwho:"喜歡清爽又想多一分層次的你 — 花香帶焙韻。",
+    fire:22, aroma:62, soup:"#c98a3c"
+  },
+  honghei: {
+    name:"小葉紅茶｜蜜韻", en:"Honey Black Tea", roast:"全發酵 · 蜜香型",
+    tagline:"天然蜜香與熟果，比一般紅茶更不澀、更順口。台灣小葉種製成的紅茶，溫潤好入口。",
+    specs:[["發酵","全發酵"],["焙火","輕"],["茶湯","橙紅明亮"],["品種","台灣小葉種"]],
+    chips:["天然蜜香","熟果","溫潤","順口不澀"],
+    forwho:"喜歡溫柔蜜香的你 — 順口不澀、好入口。",
+    fire:22, aroma:80, soup:"#c25a2a"
+  },
+  redoolong: {
+    name:"紅烏龍", en:"Red Oolong", roast:"重發酵重焙 · 果蜜型",
+    tagline:"熟成果香裹著蜂蜜，圓潤飽滿。台東紅烏龍，重發酵與重焙火的完美平衡，數十小時低溫烘焙，琥珀透亮。",
+    specs:[["發酵","重發酵"],["焙火","數十小時低溫焙"],["茶湯","琥珀透亮"],["產地","台東"]],
+    chips:["熟成果香","蜂蜜甜","圓潤厚實","琥珀"],
+    forwho:"搭配甜點時的你 — 果蜜熟香、與甜食最契合。",
+    fire:72, aroma:85, soup:"#a8431f"
+  },
+  charcoal: {
+    name:"碳焙烏龍", en:"Charcoal Roasted Oolong", roast:"重焙火 · 炭韻型",
+    tagline:"炭火焦香，收在一絲沉穩的木質尾韻。傳統龍眼木炭焙，慢火細烘把苦澀轉化為溫潤焙香。",
+    specs:[["發酵","中發酵"],["焙火","龍眼木重炭焙"],["茶湯","深琥珀"],["韻","木質尾韻"]],
+    chips:["炭火焦香","木質尾韻","沉穩安定","溫潤焙香"],
+    forwho:"雨後或午後想放鬆的你 — 火香溫暖、提供安定感。",
+    fire:92, aroma:55, soup:"#6e3a22"
+  }
+};
+
+/* ---------- Floral, non-Taiwan teas (shown separately, not scored) ---------- */
+const FLORAL = {
+  jasmine: {
+    name:"茉莉綠茶（五印）", en:"Jasmine Green · Five Seals",
+    note:"五次窨製，茉莉香透進茶骨。最高等級的清涼舒壓，極致清爽。",
+    chips:["茉莉花窨","極致清爽","舒壓"]
+  },
+  earlgrey: {
+    name:"伯爵紅｜經典", en:"Earl Grey",
+    note:"佛手柑的清新柑橘香與紅茶結合，適合想換個心情、或搭配點心的時刻。",
+    chips:["佛手柑","柑橘清香","換個心情"]
+  }
+};
+
+/* ---------- Questions (flavor axes, not personality) ---------- */
+const QUESTIONS = [
+  {
+    eyebrow:"Axis 01 / 焙火",
+    title:"先決定一件事 — 你想要哪種「重量」？",
+    sub:"焙火越深，茶越溫暖厚實；越輕，越清亮鮮活。",
+    meter:["Light Fire","Dark Fire"],
+    options:[
+      {label:"Bright & clean", zh:"清亮鮮活", desc:"幾乎沒有火味，喝起來像剛採下的鮮葉，輕盈。", roast:0},
+      {label:"Somewhere warm", zh:"溫潤中段", desc:"有一點焙火帶來的熟甜，但不沉重，平衡好入口。", roast:1},
+      {label:"Deep & roasted", zh:"深沉炭韻", desc:"明顯的焙火、炭香或熟成，溫暖厚實、尾韻長。", roast:2},
+    ],
+    key:"roast"
+  },
+  {
+    eyebrow:"Axis 02 / 香氣",
+    title:"再選香氣的走向 — 你被哪種味道吸引？",
+    sub:"同樣的焙火程度，香氣方向會把你帶到不同的茶。",
+    meter:["Floral","Honeyed"],
+    options:[
+      {label:"Flowers & fresh air", zh:"花香 / 清香", desc:"高山花香、梔子、野薑花 — 清新、上揚、讓人清醒。", aroma:0},
+      {label:"Caramel & ripe fruit", zh:"焦糖 / 熟果", desc:"焙火轉化的焦糖、熟果、蜜甜 — 飽滿、療癒。", aroma:1},
+    ],
+    key:"aroma"
+  },
+  {
+    eyebrow:"Axis 03 / 場景",
+    title:"最後一題 — 這杯茶陪你做什麼？",
+    sub:"場景幫我們在相近的茶之間，挑出最對的那一支。",
+    meter:["Refresh","Settle"],
+    options:[
+      {label:"Reset & refresh", zh:"清醒 / 解膩", desc:"飯後、需要專注、想被叫醒的時刻。", scene:"refresh"},
+      {label:"Slow & unwind", zh:"慢飲 / 放鬆", desc:"午後、雨天、想靜下來想事情。", scene:"settle"},
+      {label:"With something sweet", zh:"配甜點", desc:"有甜食、想要甜香交融的時刻。", scene:"dessert"},
+    ],
+    key:"scene"
+  }
+];
+
+/* ---------- Scoring: map answers → a tea ---------- */
+function pickTea(a){
+  const {roast, aroma, scene} = a;
+  // dessert pairing short-circuits to the honey/fruit teas
+  if(scene==="dessert"){
+    if(roast===2 || aroma===1) return "redoolong";
+    return "honghei";
+  }
+  // LIGHT fire
+  if(roast===0){
+    if(aroma===0) return "qingxin";   // light + floral → high-mountain
+    return "honghei"; // light fire + honeyed → honey black
+  }
+  // MID fire
+  if(roast===1){
+    if(aroma===0) return "sijichun";
+    return "dongding";
+  }
+  // DARK fire
+  if(aroma===0) return "dongding";   // dark + floral leaning → deep roasted but aromatic
+  return scene==="settle" ? "charcoal" : "redoolong";
+}
+
+/* near neighbours for the "also try" row */
+const NEIGHBORS = {
+  qingxin:["sijichun","honghei"],
+  sijichun:["qingxin","dongding"],
+  dongding:["sijichun","charcoal"],
+  honghei:["redoolong","qingxin"],
+  redoolong:["dongding","charcoal"],
+  charcoal:["dongding","redoolong"]
+};
+
+/* ---------- Engine ---------- */
+const answers={};
+let step=0;
+const quiz=document.getElementById('quiz');
+const result=document.getElementById('result');
+const stepbar=document.getElementById('stepbar');
+
+function renderStepbar(){
+  let h='<span>STEP '+(step+1)+' / '+QUESTIONS.length+'</span>';
+  for(let i=0;i<QUESTIONS.length;i++) h+='<span class="dot'+(i<=step?' on':'')+'"></span>';
+  stepbar.innerHTML=h;
+}
+
+function renderQuestion(){
+  const q=QUESTIONS[step];
+  renderStepbar();
+  let opts='';
+  q.options.forEach((o,i)=>{
+    opts+=`<button class="choice" data-i="${i}">
+      <span class="c-num">${String(i+1).padStart(2,'0')}</span>
+      <span class="c-body">
+        <span class="c-label">${o.label}</span>
+        <span class="c-zh">${o.zh}</span>
+        <span class="c-desc">${o.desc}</span>
+      </span></button>`;
+  });
+  // meter
+  let segs='';
+  const total=6, fillN = step===0?2:step===1?3:4;
+  for(let i=0;i<total;i++) segs+=`<span class="seg${i<fillN?' fill':''}"></span>`;
+  const backBtn = step>0 ? `<button class="back" id="backBtn">← 上一題</button>`:'';
+
+  quiz.innerHTML=`
+    <p class="q-eyebrow">${q.eyebrow}</p>
+    <h2 class="q-title">${q.title}</h2>
+    <p class="q-sub">${q.sub}</p>
+    <div class="choices">${opts}</div>
+    <div class="meter">${segs}</div>
+    <div class="meter-cap"><span>${q.meter[0]}</span><span>${q.meter[1]}</span></div>
+    ${backBtn}
+  `;
+  quiz.querySelectorAll('.choice').forEach(b=>{
+    b.addEventListener('click',()=>choose(parseInt(b.dataset.i)));
+  });
+  const bb=document.getElementById('backBtn');
+  if(bb) bb.addEventListener('click',()=>{step--;renderQuestion();});
+}
+
+function choose(i){
+  const q=QUESTIONS[step];
+  const o=q.options[i];
+  if('roast'in o) answers.roast=o.roast;
+  if('aroma'in o) answers.aroma=o.aroma;
+  if('scene'in o) answers.scene=o.scene;
+  if(step<QUESTIONS.length-1){step++;renderQuestion();}
+  else showResult();
+}
+
+/* short label for map dots */
+/* 對應點單頁 MENU 的品項順序（「去點這杯」用） */
+const MENU_INDEX={dongding:0,qingxin:1,sijichun:2,charcoal:3,redoolong:4,honghei:5};
+
+const SHORT={qingxin:"青心",sijichun:"四季春",dongding:"凍頂",honghei:"蜜韻紅",redoolong:"紅烏龍",charcoal:"碳焙"};
+
+/* draw the flavor map; highlight `key` */
+function renderMap(key){
+  const svg=document.getElementById('map-svg');
+  const W=320,H=280, pad={l:24,r:16,t:16,b:30};
+  const x=v=>pad.l+(v/100)*(W-pad.l-pad.r);
+  const y=v=>pad.t+(v/100)*(H-pad.t-pad.b); // aroma 0 (floral) at top
+  let g='';
+  // grid
+  for(let i=0;i<=4;i++){
+    const gx=pad.l+i/4*(W-pad.l-pad.r);
+    const gy=pad.t+i/4*(H-pad.t-pad.b);
+    g+=`<line class="map-grid" x1="${gx}" y1="${pad.t}" x2="${gx}" y2="${H-pad.b}"/>`;
+    g+=`<line class="map-grid" x1="${pad.l}" y1="${gy}" x2="${W-pad.r}" y2="${gy}"/>`;
+  }
+  // axes
+  g+=`<line class="map-axis" x1="${pad.l}" y1="${H-pad.b}" x2="${W-pad.r}" y2="${H-pad.b}"/>`;
+  g+=`<line class="map-axis" x1="${pad.l}" y1="${pad.t}" x2="${pad.l}" y2="${H-pad.b}"/>`;
+  // axis labels (kept inside viewBox)
+  g+=`<text class="map-axlabel" x="${pad.l}" y="${H-6}">輕焙</text>`;
+  g+=`<text class="map-axlabel" x="${W-pad.r}" y="${H-6}" text-anchor="end">重焙</text>`;
+  g+=`<text class="map-axlabel" x="11" y="${pad.t+2}" transform="rotate(-90 11 ${pad.t+2})">花香</text>`;
+  g+=`<text class="map-axlabel" x="11" y="${H-pad.b}" transform="rotate(-90 11 ${H-pad.b})" text-anchor="end">蜜熟</text>`;
+  // other teas
+  for(const k in TEAS){
+    if(k===key) continue;
+    const t=TEAS[k];
+    g+=`<circle class="map-dot" cx="${x(t.fire)}" cy="${y(t.aroma)}" r="4"/>`;
+    g+=`<text class="map-dot-label" x="${x(t.fire)+7}" y="${y(t.aroma)+3}">${SHORT[k]}</text>`;
+  }
+  // highlighted tea
+  const t=TEAS[key];
+  g+=`<circle class="map-you-ring" cx="${x(t.fire)}" cy="${y(t.aroma)}" r="7"/>`;
+  g+=`<circle class="map-you" cx="${x(t.fire)}" cy="${y(t.aroma)}" r="6"/>`;
+  g+=`<text class="map-you-label" x="${x(t.fire)+9}" y="${y(t.aroma)+4}">${SHORT[key]}</text>`;
+  svg.innerHTML=g;
+}
+
+/* shared render for a tea result */
+function renderTea(key){
+  const t=TEAS[key];
+  document.getElementById('r-roast').textContent=t.roast;
+  document.getElementById('r-name').textContent=t.name;
+  document.getElementById('r-en').textContent=t.en;
+  document.getElementById('r-tagline').textContent=t.tagline;
+  document.getElementById('r-specs').innerHTML=t.specs.map(s=>`<div class="r-spec"><dt>${s[0]}</dt><dd>${s[1]}</dd></div>`).join('');
+  document.getElementById('r-chips').innerHTML=t.chips.map(c=>`<span class="chip">${c}</span>`).join('');
+  document.getElementById('r-for').innerHTML='<b>推薦給：</b>'+t.forwho;
+  document.getElementById('r-alt').innerHTML=NEIGHBORS[key].map(k=>`<button class="alt-item" data-k="${k}"><span class="an">${TEAS[k].name}</span><span class="ae">${TEAS[k].en}</span></button>`).join('');
+  document.querySelectorAll('.alt-item').forEach(b=>{b.addEventListener('click',()=>swapTo(b.dataset.k));});
+  renderMap(key);
+  document.getElementById('r-menu').href='./?tea='+MENU_INDEX[key]+'#menu';
+}
+
+function showResult(){
+  const key=pickTea(answers);
+  renderTea(key);
+  document.getElementById('r-floral').innerHTML=Object.values(FLORAL).map(f=>`
+    <div class="floral-card">
+      <p class="fn">${f.name}</p>
+      <p class="fe">${f.en}</p>
+      <p class="fnote">${f.note}</p>
+      <div class="fchips">${f.chips.map(c=>`<span class="fchip">${c}</span>`).join('')}</div>
+    </div>`).join('');
+  quiz.style.display='none';
+  stepbar.style.display='none';
+  result.classList.add('show');
+  result.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function swapTo(key){
+  renderTea(key);
+  result.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+document.getElementById('r-restart').addEventListener('click',()=>{
+  for(const k in answers) delete answers[k];
+  step=0;
+  result.classList.remove('show');
+  quiz.style.display='block';
+  stepbar.style.display='flex';
+  renderQuestion();
+  document.querySelector('.masthead').scrollIntoView({behavior:'smooth'});
+});
+
+renderQuestion();
+
+</script>
+</body>
+</html>

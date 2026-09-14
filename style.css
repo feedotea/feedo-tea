@@ -1,0 +1,594 @@
+/* FEEDO 菲多 · 點單頁與故事頁共用樣式 */
+  :root{
+    --paper:#e9e2cf;--paper-light:#f1ead8;--ink:#1c1813;--ink-soft:#39322a;
+    --rule:#1c1813;--accent:#6e2415;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Old Standard TT',serif;background:#2a261d;color:var(--ink);-webkit-font-smoothing:antialiased;}
+
+  /* 報紙容器 */
+  .gazette{max-width:1000px;margin:0 auto;background:var(--paper);
+    background-image:radial-gradient(circle at 18% 12%,rgba(120,100,60,.08),transparent 40%),radial-gradient(circle at 85% 78%,rgba(90,70,40,.10),transparent 45%);
+    box-shadow:0 0 60px rgba(0,0,0,.5);position:relative;}
+  /* 紙張噪點 */
+  .gazette::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:1;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+    mix-blend-mode:multiply;opacity:.5;}
+  .gazette > *{position:relative;z-index:2;}
+
+  /* ===== NAV (報紙索引列) ===== */
+  nav{position:sticky;top:0;z-index:100;background:var(--ink);color:var(--paper);
+    display:flex;justify-content:center;flex-wrap:wrap;gap:2px;padding:8px 12px;}
+  nav a{color:var(--paper);text-decoration:none;font-family:'Special Elite',monospace;
+    font-size:11px;letter-spacing:1.5px;text-transform:uppercase;padding:5px 13px;
+    border-bottom:2px solid transparent;transition:.2s;}
+  nav a:hover{border-color:var(--paper);}
+  nav a.feature{color:var(--paper);border:1px solid var(--accent);background:var(--accent);
+    border-radius:2px;}
+  nav a.feature:hover{background:var(--paper);color:var(--ink);border-color:var(--paper);}
+
+  .pad{padding:0 46px;}
+  @media(max-width:680px){.pad{padding:0 22px;}}
+
+  /* ===== 報頭 ===== */
+  .masthead-top{display:flex;justify-content:space-between;align-items:center;
+    font-family:'Special Elite';font-size:10.5px;letter-spacing:1px;text-transform:uppercase;
+    color:var(--ink-soft);padding:14px 0 6px;}
+  .masthead{text-align:center;border-top:3px double var(--rule);border-bottom:3px double var(--rule);padding:10px 0 14px;position:relative;}
+  .masthead h1{font-family:'Playfair Display',serif;font-weight:900;
+    font-size:clamp(44px,9vw,104px);line-height:.9;letter-spacing:1px;}
+  .masthead .sub{font-family:'Old Standard TT';font-style:italic;font-size:clamp(11px,2vw,15px);
+    letter-spacing:3px;text-transform:uppercase;margin-top:8px;}
+  /* 報頭會動的 logo 狗 */
+  .mast-dog{position:absolute;right:-1%;bottom:-10px;width:clamp(64px,9vw,100px);cursor:pointer;
+    animation:dogIn 1s cubic-bezier(.2,1.1,.3,1) both,dogBob 4s ease-in-out 1s infinite;z-index:5;}
+  .mast-dog img{width:100%;display:block;filter:drop-shadow(0 4px 8px rgba(0,0,0,.25));}
+  .mast-dog:hover{animation-play-state:paused;}
+  .mast-dog:hover img{animation:dogTilt .7s ease;}
+  @keyframes dogIn{0%{opacity:0;transform:scale(.4) translateY(20px) rotate(-8deg);}100%{opacity:1;transform:none;}}
+  @keyframes dogBob{0%,100%{transform:translateY(0) rotate(0);}50%{transform:translateY(-7px) rotate(2deg);}}
+  @keyframes dogTilt{0%,100%{transform:rotate(0);}30%{transform:rotate(-7deg);}65%{transform:rotate(5deg);}}
+  @media(max-width:680px){.mast-dog{width:62px;right:0;bottom:-2px;}}
+  .dateline{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;
+    font-family:'Special Elite';font-size:10px;letter-spacing:1px;text-transform:uppercase;
+    color:var(--ink-soft);border-bottom:1px solid var(--rule);padding:6px 0;}
+
+  /* ===== 頭版頭條 ===== */
+  .lead{padding:24px 0 0;}
+  .kicker{text-align:center;font-family:'Special Elite';font-size:12px;letter-spacing:5px;
+    text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
+  .lead h2{text-align:center;font-family:'Playfair Display',serif;font-weight:900;
+    font-size:clamp(34px,7vw,68px);line-height:.96;text-transform:uppercase;letter-spacing:-.5px;}
+  .lead .deck{text-align:center;font-family:'Playfair Display',serif;font-style:italic;
+    font-size:clamp(15px,2.4vw,21px);margin-top:14px;color:var(--ink-soft);max-width:620px;margin-left:auto;margin-right:auto;}
+  .rule2{border:none;border-top:2px solid var(--rule);margin:16px 0 4px;}
+  .rule1{border:none;border-top:1px solid var(--rule);margin:0 0 18px;}
+
+  figure.hero-fig{margin:18px 0;border:1px solid var(--ink);padding:7px;background:var(--paper-light);}
+  figure.hero-fig .imgwrap{position:relative;overflow:hidden;filter:grayscale(1) contrast(1.08);}
+  figure.hero-fig img{width:100%;display:block;}
+  figure.hero-fig .imgwrap::after{content:"";position:absolute;inset:0;
+    background-image:radial-gradient(circle,rgba(0,0,0,.5) .7px,transparent 1.1px);background-size:3px 3px;
+    mix-blend-mode:multiply;opacity:.25;pointer-events:none;}
+  figure.hero-fig figcaption{font-family:'Special Elite';font-size:11px;text-align:center;
+    padding-top:8px;color:var(--ink-soft);}
+  figcaption b{font-family:'Old Standard TT';font-weight:700;}
+
+  /* 頭版三欄 */
+  .lead-cols{column-count:3;column-gap:26px;column-rule:1px solid rgba(28,24,19,.4);
+    text-align:justify;font-size:13.5px;line-height:1.62;hyphens:auto;margin-top:6px;}
+  .lead-cols p{margin-bottom:9px;text-indent:15px;}
+  .lead-cols p:first-of-type{text-indent:0;}
+  .lead-cols p:first-of-type::first-letter{font-family:'Playfair Display',serif;font-weight:900;
+    font-size:54px;line-height:.78;float:left;padding:4px 8px 0 0;color:var(--accent);}
+  .pull{font-family:'Playfair Display',serif;font-style:italic;font-size:18px;line-height:1.35;
+    text-align:center;border-top:2px solid var(--rule);border-bottom:2px solid var(--rule);
+    padding:10px 4px;margin:6px 0;break-inside:avoid;color:var(--accent);}
+  @media(max-width:760px){.lead-cols{column-count:1;}}
+
+  /* 轉版指引 (lead → finder) */
+  .turn-to{text-align:center;margin:22px 0 4px;}
+  .turn-to hr{border:none;border-top:2px solid var(--rule);margin:0 0 12px;}
+  .turn-to a{display:inline-block;text-decoration:none;color:var(--accent);
+    font-family:'Special Elite',monospace;font-size:12px;letter-spacing:4px;
+    text-transform:uppercase;padding:7px 18px;border:1px solid var(--accent);
+    background:var(--paper-light);transition:.18s;}
+  .turn-to a:hover{background:var(--accent);color:var(--paper);}
+  .turn-to .arrow{display:block;font-size:18px;line-height:1;margin-top:8px;
+    color:var(--accent);animation:turnBob 1.8s ease-in-out infinite;}
+  @keyframes turnBob{0%,100%{transform:translateY(0);}50%{transform:translateY(4px);}}
+
+  /* ===== 內版區塊 ===== */
+  .section{padding:40px 0;border-top:4px double var(--rule);margin-top:30px;}
+  .sec-banner{text-align:center;margin-bottom:24px;}
+  .sec-banner .ed{font-family:'Special Elite';font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--accent);}
+  .sec-banner h3{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(28px,5vw,46px);
+    text-transform:uppercase;line-height:1;margin-top:6px;}
+
+  /* 品牌故事兩欄 */
+  .story-cols{column-count:2;column-gap:26px;column-rule:1px solid rgba(28,24,19,.4);
+    text-align:justify;font-size:13.5px;line-height:1.64;hyphens:auto;}
+  .story-cols p{margin-bottom:9px;text-indent:15px;}
+  .story-cols p:first-of-type{text-indent:0;}
+  .story-cols p:first-of-type::first-letter{font-family:'Playfair Display',serif;font-weight:900;
+    font-size:50px;line-height:.78;float:left;padding:4px 8px 0 0;color:var(--accent);}
+  .story-cols .subhead{font-family:'Playfair Display',serif;font-weight:700;font-size:15px;
+    text-transform:uppercase;text-align:center;margin:4px 0 6px;break-after:avoid;}
+  .philo{break-inside:avoid;border:1px solid var(--rule);padding:12px 14px;margin:8px 0;}
+  .philo li{list-style:none;font-family:'Old Standard TT';font-size:12.5px;line-height:1.5;padding:3px 0;}
+  .philo li b{font-family:'Playfair Display';font-style:italic;color:var(--accent);}
+  @media(max-width:680px){.story-cols{column-count:1;}}
+
+  /* ===== 茶單 (報紙菜單 + 點餐) ===== */
+  .menu-frame{border:3px double var(--rule);padding:22px 26px;}
+  .menu-frame .mh{text-align:center;border-bottom:2px solid var(--rule);padding-bottom:10px;margin-bottom:6px;}
+  .menu-frame .mh h4{font-family:'Playfair Display',serif;font-weight:900;font-size:30px;letter-spacing:2px;text-transform:uppercase;}
+  .menu-frame .mh .addr{font-family:'Special Elite';font-size:11px;font-style:italic;margin-top:4px;color:var(--ink-soft);}
+  .mlist{list-style:none;}
+  .mcat{font-family:'Playfair Display',serif;font-weight:900;font-style:italic;font-size:18px;
+    text-align:center;text-transform:uppercase;letter-spacing:1px;color:var(--accent);
+    padding:16px 0 6px;margin-top:6px;border-bottom:2px solid var(--rule);}
+  .mcat:first-child{margin-top:0;padding-top:4px;}
+  /* 加奶蓋選項列 (舊版保留相容) */
+  .mfoam{display:none;}
+  /* 每杯客製容器 */
+  .mcups{display:none;padding:6px 2px 12px 16px;}
+  .mcups.show{display:block;}
+  .cup{border-left:3px solid var(--accent);background:rgba(110,36,21,.04);
+    padding:9px 12px 11px;margin-bottom:8px;}
+  .cup:last-child{margin-bottom:0;}
+  .cup .cuphd{font-family:'Special Elite';font-size:10px;letter-spacing:2px;text-transform:uppercase;
+    color:var(--accent);margin-bottom:7px;}
+  .cup .grp{display:flex;align-items:center;flex-wrap:wrap;gap:5px;margin-bottom:7px;}
+  .cup .glabel{font-family:'Special Elite';font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--ink-soft);min-width:42px;}
+  .cup .chip{font-family:'Old Standard TT';font-size:12px;padding:3px 9px;border:1px solid rgba(28,24,19,.5);background:var(--paper-light);cursor:pointer;transition:.15s;white-space:nowrap;}
+  .cup .chip:hover{border-color:var(--accent);}
+  .cup .chip.sel{background:var(--accent);color:var(--paper);border-color:var(--accent);}
+  .cup .chip.chip-off{opacity:.32;text-decoration:line-through;pointer-events:none;}
+  .cup .cupfoam{display:flex;align-items:center;gap:9px;cursor:pointer;margin-top:3px;padding-top:7px;border-top:1px dotted rgba(28,24,19,.4);}
+  .cup .cupfoam .fchk{width:17px;height:17px;border:1.5px solid var(--accent);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Special Elite';font-size:11px;color:var(--paper);background:var(--paper-light);transition:.15s;}
+  .cup .cupfoam.on .fchk{background:var(--accent);}
+  .cup .cupfoam .ftxt{flex:1;font-family:'Old Standard TT';font-size:12.5px;color:var(--ink-soft);}
+  .cup .cupfoam .fhint{font-style:italic;font-size:10.5px;opacity:.7;}
+  .cup .cupfoam .fpr{font-family:'Oswald',sans-serif;font-weight:600;font-size:13px;color:var(--accent);}
+  .mrow{display:flex;align-items:center;gap:11px;padding:11px 2px;border-bottom:1px dotted rgba(28,24,19,.5);cursor:pointer;transition:background .15s;}
+  .mrow:hover{background:rgba(110,36,21,.06);}
+  .mrow .box{width:22px;height:22px;border:2px solid var(--ink);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Special Elite';font-size:15px;color:var(--accent);background:var(--paper-light);transition:.15s;}
+  .mrow.on .box{background:var(--accent);color:var(--paper);}
+  .mrow .nm{flex:1;}
+  .mrow .nm .en{font-family:'Playfair Display',serif;font-weight:700;font-size:16px;}
+  .mrow .nm .zh{font-family:'Old Standard TT';font-style:italic;font-size:12.5px;color:var(--ink-soft);}
+  .mrow .pr{font-family:'Oswald',sans-serif;font-weight:600;font-size:17px;white-space:nowrap;}
+  .qty{display:none;align-items:center;gap:7px;margin-right:4px;}
+  .mrow.on .qty{display:flex;}
+  .qty button{width:22px;height:22px;border:1.5px solid var(--ink);background:var(--paper-light);font-family:'Oswald';font-weight:600;font-size:14px;cursor:pointer;color:var(--ink);display:flex;align-items:center;justify-content:center;line-height:1;}
+  .qty button:hover{background:var(--accent);color:var(--paper);border-color:var(--accent);}
+  .qty .num{font-family:'Oswald';font-weight:600;font-size:15px;min-width:16px;text-align:center;}
+  .mtotal{display:flex;justify-content:space-between;align-items:baseline;border-top:2px solid var(--rule);margin-top:10px;padding-top:12px;}
+  .mtotal .lbl{font-family:'Playfair Display',serif;font-weight:700;font-size:18px;letter-spacing:2px;text-transform:uppercase;}
+  .mtotal .lbl small{display:block;font-family:'Special Elite';font-size:10px;color:var(--ink-soft);text-transform:none;letter-spacing:0;margin-top:2px;}
+  .mtotal .amt{font-family:'Playfair Display',serif;font-weight:900;font-size:40px;color:var(--accent);transition:transform .2s;}
+  .mthx{text-align:center;font-family:'Playfair Display',serif;font-style:italic;font-size:15px;margin-top:10px;color:var(--ink-soft);}
+  .order-actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;}
+  .order-actions button{flex:1;min-width:120px;font-family:'Special Elite';font-size:12px;letter-spacing:1.5px;text-transform:uppercase;padding:13px;cursor:pointer;border:2px solid var(--ink);background:var(--paper-light);color:var(--ink);transition:.2s;}
+  .order-actions button:hover{background:var(--ink);color:var(--paper);}
+  .order-actions .pri{background:var(--ink);color:var(--paper);}
+  .order-actions .pri:hover{background:var(--accent);border-color:var(--accent);}
+  /* 預訂資料填寫區 */
+  .booking{border:3px double var(--rule);padding:20px 24px;margin-top:24px;}
+  .booking .bh{text-align:center;font-family:'Playfair Display',serif;font-weight:900;font-size:22px;text-transform:uppercase;letter-spacing:1px;border-bottom:2px solid var(--rule);padding-bottom:8px;margin-bottom:14px;}
+  .booking .bh small{display:block;font-family:'Old Standard TT';font-style:italic;font-weight:400;font-size:12px;text-transform:none;letter-spacing:0;margin-top:4px;color:var(--ink-soft);}
+  .bfield{display:flex;align-items:center;gap:10px;margin-bottom:11px;}
+  .bfield label{font-family:'Special Elite';font-size:11px;letter-spacing:1px;min-width:78px;color:var(--ink-soft);}
+  .bfield input,.bfield select{flex:1;font-family:'Old Standard TT';font-size:14px;padding:8px 10px;border:1px solid var(--rule);background:var(--paper-light);color:var(--ink);}
+  .bfield input:focus,.bfield select:focus{outline:none;border-color:var(--accent);background:#fff;}
+  .bfield select{cursor:pointer;}
+  .booking .notice{font-family:'Old Standard TT';font-size:12px;line-height:1.6;color:var(--ink-soft);border-top:1px dotted rgba(28,24,19,.5);margin-top:12px;padding-top:12px;}
+  .booking .notice b{color:var(--accent);}
+  /* 取茶須知 */
+  .pickup-note{border:1px solid var(--rule);background:rgba(110,36,21,.05);padding:14px 18px;margin-top:18px;}
+  .pickup-note h5{font-family:'Playfair Display',serif;font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;text-align:center;color:var(--accent);}
+  .pickup-note ul{list-style:none;}
+  .pickup-note li{font-family:'Old Standard TT';font-size:12.5px;line-height:1.7;padding-left:16px;position:relative;}
+  .pickup-note li::before{content:"\25B8";position:absolute;left:0;color:var(--accent);}
+
+  /* ===== 服務方式：門市自取 / 預約外送 ===== */
+  .svc{display:grid;grid-template-columns:1fr 1fr;border:2px solid var(--rule);margin-bottom:18px;}
+  .svc-opt{font-family:inherit;color:var(--ink);background:var(--paper-light);border:none;cursor:pointer;padding:14px 10px;
+    text-align:center;transition:.18s;display:flex;flex-direction:column;gap:2px;align-items:center;}
+  .svc-opt+.svc-opt{border-left:2px solid var(--rule);}
+  .svc-opt .svc-en{font-family:'Playfair Display',serif;font-weight:900;font-size:20px;text-transform:uppercase;letter-spacing:1px;line-height:1.1;}
+  .svc-opt .svc-zh{font-family:'Noto Serif TC',serif;font-size:14px;font-weight:600;}
+  .svc-opt .svc-d{font-family:'Special Elite';font-size:10.5px;letter-spacing:.5px;color:var(--ink-soft);}
+  .svc-opt:hover{background:rgba(110,36,21,.08);}
+  .svc-opt.on{background:var(--ink);color:var(--paper);}
+  .svc-opt.on .svc-d{color:rgba(233,226,207,.75);}
+  .svc-opt:focus-visible{outline:3px solid var(--accent);outline-offset:-5px;}
+  #menu[data-mode="pickup"] .only-delivery,#menu[data-mode="delivery"] .only-pickup{display:none !important;}
+
+  /* 外送須知 + 距離門檻 */
+  .dlv{border:3px double var(--rule);padding:18px 22px;margin-bottom:22px;}
+  .dlv-h{text-align:center;font-family:'Playfair Display',serif;font-weight:900;font-size:22px;text-transform:uppercase;letter-spacing:1px;
+    border-bottom:2px solid var(--rule);padding-bottom:8px;margin-bottom:12px;}
+  .dlv-h small{display:block;font-family:'Noto Serif TC',serif;font-weight:400;font-size:12px;text-transform:none;letter-spacing:0;margin-top:4px;color:var(--ink-soft);}
+  .tiers{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--rule);border-left:1px solid var(--rule);}
+  @media(max-width:560px){.tiers{grid-template-columns:repeat(2,1fr);}}
+  .tier{border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:9px 8px;text-align:center;cursor:pointer;transition:.15s;}
+  .tier:hover{background:rgba(110,36,21,.06);}
+  .tier .tk{font-family:'Special Elite';font-size:11px;letter-spacing:1px;color:var(--ink-soft);}
+  .tier .tm{font-family:'Oswald',sans-serif;font-weight:600;font-size:21px;color:var(--accent);line-height:1.2;}
+  .tier .tm small{font-family:'Noto Serif TC',serif;font-size:11px;font-weight:400;color:var(--ink-soft);margin-right:3px;}
+  .tier .tl{font-family:'Noto Serif TC',serif;font-size:10.5px;color:var(--ink-soft);line-height:1.4;min-height:1.4em;}
+  .tier.on{background:var(--accent);}
+  .tier.on .tk,.tier.on .tm,.tier.on .tm small,.tier.on .tl{color:var(--paper);}
+  .dlv-rules{list-style:none;margin-top:14px;}
+  .dlv-rules li{font-family:'Noto Serif TC','Old Standard TT',serif;font-size:12.5px;line-height:1.7;padding-left:16px;position:relative;}
+  .dlv-rules li::before{content:"\25B8";position:absolute;left:0;color:var(--accent);}
+  .dlv-rules b,.dlv-rules a{color:var(--accent);}
+  .dlv-map{margin-top:12px;border-top:1px dotted rgba(28,24,19,.5);padding-top:10px;}
+  .dlv-map summary{cursor:pointer;font-family:'Special Elite';font-size:12px;letter-spacing:1px;color:var(--accent);text-align:center;list-style:none;}
+  .dlv-map summary::-webkit-details-marker{display:none;}
+  .dlv-map summary::after{content:" \25BE";}
+  .dlv-map[open] summary::after{content:" \25B4";}
+  .dlv-map svg{display:block;width:100%;max-width:420px;height:auto;margin:10px auto 0;}
+  .dlv-map .cap{font-family:'Noto Serif TC',serif;font-size:11.5px;color:var(--ink-soft);text-align:center;margin-top:6px;line-height:1.5;}
+  .dm-ring{fill:none;stroke:#1c1813;stroke-width:.7;stroke-dasharray:2 2;opacity:.55;}
+  .dm-ring.on{fill:rgba(110,36,21,.10);stroke:#6e2415;stroke-width:1.6;stroke-dasharray:none;opacity:1;}
+  .dm-rl{font-family:'Special Elite';font-size:7.5px;fill:#6e675a;}
+  .dm-rl.on{fill:#6e2415;font-weight:700;}
+  .dm-lm{fill:#1c1813;}
+  .dm-lt{font-family:'Noto Serif TC',serif;font-size:8.5px;fill:#1c1813;}
+  .dm-shop{fill:#6e2415;stroke:#e9e2cf;stroke-width:1.5;}
+  .dm-st{font-family:'Playfair Display',serif;font-weight:700;font-size:9px;fill:#6e2415;}
+
+  /* 茶單列：點一下開選規格視窗，方塊顯示已點杯數 */
+  .mtip{text-align:center;font-family:'Special Elite';font-size:11px;letter-spacing:1px;color:var(--accent);padding:2px 0 4px;}
+  .mrow .box{width:28px;height:26px;font-family:'Oswald',sans-serif;font-weight:600;font-size:14px;}
+  .mrow:not(.on) .box{color:var(--ink-soft);}
+  .mrow:focus-visible{outline:2px solid var(--accent);outline-offset:-2px;}
+
+  /* 杯數加減（視窗與訂單共用） */
+  .gqty{display:flex;align-items:center;gap:5px;font-family:'Noto Serif TC',serif;font-size:13px;color:var(--ink);}
+  .gqty button{width:28px;height:28px;padding:0;border:1.5px solid var(--ink);background:var(--paper-light);font-family:'Oswald';font-weight:600;font-size:16px;line-height:1;cursor:pointer;color:var(--ink);}
+  .gqty button:hover{background:var(--accent);color:var(--paper);border-color:var(--accent);}
+  .gqty input{width:64px;height:34px;text-align:center;font-family:'Oswald';font-weight:600;font-size:17px;border:1.5px solid var(--ink);background:#fff;color:var(--ink);border-radius:0;-moz-appearance:textfield;}
+  .gqty input::-webkit-inner-spin-button,.gqty input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0;}
+  .gqty .num{font-family:'Oswald';font-weight:600;font-size:15px;min-width:28px;text-align:center;}
+
+  /* 品項選擇視窗 */
+  .item-box{max-width:460px;max-height:calc(100vh - 40px);overflow-y:auto;padding:26px 22px 20px;}
+  .item-x{position:absolute;top:14px;right:12px;width:34px;height:34px;border:none;background:none;font-size:28px;line-height:1;cursor:pointer;color:var(--ink);}
+  .item-x:hover{color:var(--accent);}
+  .confirm-box.item-box h3{margin:0 34px 2px 0;font-family:'Noto Serif TC',serif;font-weight:600;font-size:22px;}
+  .item-en{font-family:'Playfair Display',serif;font-style:italic;font-size:13px;color:var(--ink-soft);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--ink);}
+  .opt{margin-bottom:12px;}
+  .opt-l{display:block;font-family:'Noto Serif TC',serif;font-weight:600;font-size:13px;margin-bottom:6px;}
+  .opt-l span{font-family:'Special Elite';font-weight:400;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--ink-soft);margin-left:4px;}
+  .opt-c{display:grid;grid-template-columns:repeat(auto-fill,minmax(74px,1fr));gap:6px;}
+  .ochip{font-family:'Noto Serif TC',serif;font-size:13px;padding:9px 4px;border:1px solid rgba(28,24,19,.55);background:var(--paper-light);color:var(--ink);cursor:pointer;transition:.12s;}
+  .ochip:hover{border-color:var(--accent);}
+  .ochip.sel{background:var(--accent);border-color:var(--accent);color:var(--paper);}
+  .ochip.off{opacity:.35;text-decoration:line-through;}
+  .ochip.wide{grid-column:1/-1;display:flex;justify-content:center;align-items:baseline;gap:8px;flex-wrap:wrap;}
+  .ochip small{font-size:10.5px;opacity:.75;}
+  .item-note{width:100%;font-family:'Noto Serif TC',serif;font-size:14px;padding:8px 10px;border:1px solid rgba(28,24,19,.55);background:var(--paper-light);color:var(--ink);border-radius:0;}
+  .item-note:focus{outline:none;border-color:var(--accent);background:#fff;}
+  .item-foot{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--ink);padding-top:12px;margin:14px 0;}
+  .item-foot .gqty button{width:34px;height:34px;font-size:18px;}
+  .item-sum{font-family:'Playfair Display',serif;font-weight:900;font-size:26px;color:var(--accent);}
+  #itemOk{background:var(--accent);color:var(--paper);border-color:var(--accent);font-size:14px;padding:13px;}
+  #itemOk:hover{background:var(--ink);border-color:var(--ink);}
+
+  /* 您的訂單（帳單明細，可改杯數/修改/刪除） */
+  .ckhd{text-align:center;font-family:'Playfair Display',serif;font-weight:700;font-size:15px;letter-spacing:2px;text-transform:uppercase;border-top:2px solid var(--rule);margin-top:14px;padding-top:10px;}
+  .ckhd span{font-family:'Noto Serif TC',serif;font-weight:400;font-size:12px;letter-spacing:1px;color:var(--ink-soft);margin-left:8px;}
+  .msum{list-style:none;margin-top:4px;}
+  .cl{display:grid;grid-template-columns:1fr auto auto;gap:4px 12px;align-items:center;padding:9px 0;border-bottom:1px dotted rgba(28,24,19,.4);}
+  .cl-name{font-family:'Noto Serif TC',serif;font-weight:600;font-size:14px;}
+  .cl-name em{font-style:normal;font-weight:400;font-size:12px;color:var(--accent);}
+  .cl-spec{font-family:'Noto Serif TC',serif;font-size:12px;color:var(--ink-soft);}
+  .cl-ops button{background:none;border:none;padding:2px 12px 2px 0;font-family:'Special Elite';font-size:11px;color:var(--ink-soft);text-decoration:underline;cursor:pointer;}
+  .cl-ops button:hover{color:var(--accent);}
+  .cl-amt{font-family:'Oswald',sans-serif;font-weight:600;font-size:15px;min-width:50px;text-align:right;}
+  .cl-empty{font-family:'Noto Serif TC',serif;font-size:12.5px;color:var(--ink-soft);text-align:center;padding:14px 0;}
+  .mmin{margin-top:10px;padding:7px 10px;font-family:'Noto Serif TC',serif;font-size:12.5px;text-align:center;border:1px dashed var(--accent);color:var(--accent);}
+  .mmin.ok{border-style:solid;background:rgba(110,36,21,.06);}
+
+  /* 底部訂單列 */
+  .cartbar{position:fixed;left:50%;bottom:14px;transform:translate(-50%,130px);z-index:9000;display:flex;align-items:center;justify-content:space-between;gap:16px;
+    width:min(460px,calc(100% - 32px));padding:13px 18px;background:var(--ink);color:var(--paper);border:none;cursor:pointer;
+    box-shadow:0 10px 30px rgba(0,0,0,.35);font-family:'Noto Serif TC',serif;font-size:14px;transition:transform .3s;}
+  .cartbar.show{transform:translate(-50%,0);}
+  .cartbar .cb-go{font-family:'Special Elite';font-size:12px;letter-spacing:1px;}
+  body.has-cartbar .toast{bottom:84px;}
+
+  /* 預訂表單補充欄位 */
+  .bfield textarea{flex:1;font-family:'Noto Serif TC','Old Standard TT',serif;font-size:14px;padding:8px 10px;border:1px solid var(--rule);background:var(--paper-light);color:var(--ink);resize:vertical;min-height:58px;}
+  .bfield textarea:focus{outline:none;border-color:var(--accent);background:#fff;}
+  .bfield.top{align-items:flex-start;}
+  .bfield.top label{padding-top:9px;}
+  .bsub{font-family:'Special Elite';font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);border-top:1px dotted rgba(28,24,19,.5);padding-top:10px;margin:14px 0 10px;}
+
+  /* ===== 公司揪團 ===== */
+  [hidden]{display:none !important;}
+  #menu:not([data-group]) .g-show{display:none !important;}
+  #menu[data-group] .g-hide{display:none !important;}
+  #menu[data-group="member"] .g-host{display:none !important;}
+  #menu:not([data-group="host"]) .g-hostonly{display:none !important;}
+  .order-actions button:disabled{opacity:.5;cursor:not-allowed;}
+  .gstart{display:flex;flex-direction:column;align-items:center;gap:3px;width:100%;margin:-6px 0 20px;padding:13px 12px;
+    border:1.5px dashed var(--accent);background:rgba(110,36,21,.04);color:var(--ink);cursor:pointer;font-family:'Noto Serif TC',serif;transition:.15s;}
+  .gstart b{font-size:16px;color:var(--accent);}
+  .gstart span{font-size:12px;color:var(--ink-soft);}
+  .gstart:hover{background:var(--accent);}
+  .gstart:hover b,.gstart:hover span{color:var(--paper);}
+  .gbar{position:relative;border:3px double var(--rule);background:var(--paper-light);padding:24px 20px 14px;margin:8px 0 22px;text-align:center;}
+  .gb-stamp{position:absolute;top:-12px;left:50%;transform:translateX(-50%) rotate(-1.5deg);background:var(--accent);color:var(--paper);
+    font-family:'Special Elite';font-size:11px;letter-spacing:3px;padding:4px 14px;white-space:nowrap;}
+  .gb-title{font-family:'Noto Serif TC',serif;font-weight:600;font-size:24px;line-height:1.3;}
+  .gb-meta{font-family:'Noto Serif TC',serif;font-size:13px;color:var(--ink-soft);margin-top:4px;line-height:1.7;}
+  .gb-meta b{color:var(--accent);}
+  .gb-meta .closed{color:var(--paper);background:var(--ink);padding:1px 8px;}
+  .gb-btns{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:12px;}
+  .gb-btns button{font-family:'Noto Serif TC',serif;font-size:13px;padding:9px 14px;border:1.5px solid var(--ink);background:var(--paper);color:var(--ink);cursor:pointer;transition:.15s;}
+  .gb-btns button:hover{background:var(--ink);color:var(--paper);}
+  .gb-btns .pri{background:var(--accent);border-color:var(--accent);color:var(--paper);}
+  .gb-admin{font-family:'Noto Serif TC',serif;font-size:12px;color:var(--ink-soft);text-align:left;margin-top:12px;padding-top:10px;border-top:1px dotted rgba(28,24,19,.5);line-height:1.7;}
+  .gb-admin b{color:var(--accent);}
+  .gb-admin button{background:none;border:none;padding:0;font:inherit;color:var(--accent);text-decoration:underline;cursor:pointer;}
+  .gb-exit{display:inline-block;margin-top:10px;font-family:'Special Elite';font-size:11px;color:var(--ink-soft);}
+  .gstate{font-family:'Noto Serif TC',serif;font-size:12.5px;text-align:center;margin-top:12px;color:var(--ink-soft);min-height:1.2em;}
+  .gstate.warn{color:var(--accent);font-weight:600;}
+  .gmembers{border:1px solid var(--rule);margin-top:18px;padding:14px 18px;}
+  .gm-h{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;border-bottom:2px solid var(--rule);padding-bottom:8px;}
+  .gm-h b{font-family:'Noto Serif TC',serif;font-size:16px;}
+  .gm-h span{font-family:'Oswald',sans-serif;font-size:14px;color:var(--accent);}
+  .gm-h button{margin-left:auto;background:none;border:none;font-family:'Special Elite';font-size:11px;color:var(--ink-soft);text-decoration:underline;cursor:pointer;}
+  #gmList{list-style:none;}
+  .gm{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:10px 0;border-bottom:1px dotted rgba(28,24,19,.4);}
+  .gm-n{font-family:'Noto Serif TC',serif;font-weight:600;font-size:14px;}
+  .gm-n i{font-style:normal;font-size:10.5px;background:var(--accent);color:var(--paper);padding:1px 6px;margin-left:6px;vertical-align:2px;}
+  .gm-amt{font-family:'Oswald',sans-serif;font-weight:600;font-size:15px;text-align:right;}
+  .gm-items{grid-column:1/-1;font-family:'Noto Serif TC',serif;font-size:12.5px;color:var(--ink-soft);line-height:1.6;}
+  .gm-ops{grid-column:1/-1;}
+  .gm-ops button{background:none;border:none;padding:2px 12px 2px 0;font-family:'Special Elite';font-size:11px;color:var(--ink-soft);text-decoration:underline;cursor:pointer;}
+  .gm-ops button:hover{color:var(--accent);}
+  .gc-hint{font-family:'Noto Serif TC',serif;font-size:11.5px;color:var(--ink-soft);margin-top:5px;line-height:1.5;}
+  #groupOk{background:var(--accent);color:var(--paper);border-color:var(--accent);font-size:14px;padding:13px;}
+  #groupOk:hover{background:var(--ink);border-color:var(--ink);}
+  #groupOk:disabled{opacity:.6;cursor:wait;}
+
+  /* 商品廣告 */
+  .ads-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:2px solid var(--rule);}
+  @media(max-width:640px){.ads-grid{grid-template-columns:repeat(2,1fr);}}
+  .ad{padding:18px 16px;text-align:center;border-bottom:1px solid var(--rule);border-right:1px solid var(--rule);}
+  .ad:nth-child(3n){border-right:none;}
+  @media(max-width:640px){.ad:nth-child(3n){border-right:1px solid var(--rule);}.ad:nth-child(2n){border-right:none;}}
+  .ad .label{font-family:'Special Elite';font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--accent);}
+  .ad h5{font-family:'Playfair Display',serif;font-weight:900;font-size:20px;text-transform:uppercase;margin:6px 0;line-height:1;}
+  .ad .price{font-family:'Oswald',sans-serif;font-weight:700;font-size:22px;}
+  .ad .desc{font-family:'Old Standard TT';font-size:11px;font-style:italic;color:var(--ink-soft);margin-top:4px;line-height:1.4;}
+
+  /* 店家資訊 (報頭式) */
+  .info-cols{display:grid;grid-template-columns:1fr 1fr;gap:0;border:2px solid var(--rule);}
+  @media(max-width:640px){.info-cols{grid-template-columns:1fr;}}
+  .info-c{padding:24px 28px;}
+  .info-c:first-child{border-right:2px solid var(--rule);}
+  @media(max-width:640px){.info-c:first-child{border-right:none;border-bottom:2px solid var(--rule);}}
+  .info-c h4{font-family:'Playfair Display',serif;font-weight:900;font-size:18px;text-transform:uppercase;letter-spacing:1px;border-bottom:1px solid var(--rule);padding-bottom:5px;margin-bottom:12px;}
+  .irow{display:flex;gap:12px;margin-bottom:9px;font-size:13px;line-height:1.5;}
+  .irow .k{font-family:'Special Elite';font-size:10px;letter-spacing:1px;text-transform:uppercase;min-width:62px;color:var(--ink-soft);padding-top:2px;}
+  .hrow{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px dotted rgba(28,24,19,.4);font-size:13px;}
+  .hrow span:last-child{font-family:'Oswald',sans-serif;}
+  .ig-link{display:inline-block;margin-top:8px;font-family:'Special Elite';font-size:12px;letter-spacing:1px;color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent);padding-bottom:1px;}
+
+  /* 報尾 */
+  .colophon{text-align:center;font-family:'Special Elite';font-size:10px;letter-spacing:2px;
+    text-transform:uppercase;color:var(--ink-soft);border-top:3px double var(--rule);
+    margin-top:30px;padding:18px 0 28px;}
+
+  .toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(80px);
+    background:var(--ink);color:var(--paper);font-family:'Special Elite';letter-spacing:1px;
+    padding:13px 24px;box-shadow:0 10px 30px rgba(0,0,0,.4);opacity:0;
+    transition:transform .35s,opacity .35s;z-index:9999;font-size:13px;}
+  .toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
+
+  /* ===== 確認對話框（報紙風） ===== */
+  .confirm-mask{position:fixed;inset:0;background:rgba(28,24,19,.55);backdrop-filter:blur(2px);
+    display:none;align-items:center;justify-content:center;z-index:10000;padding:20px;
+    animation:cfmFade .2s ease;}
+  .confirm-mask.show{display:flex;}
+  @keyframes cfmFade{from{opacity:0}to{opacity:1}}
+  .confirm-box{background:var(--paper);max-width:380px;width:100%;padding:28px 26px 22px;
+    border:1px solid var(--ink);box-shadow:0 18px 50px rgba(0,0,0,.35);
+    position:relative;animation:cfmIn .25s cubic-bezier(.2,.9,.3,1.2);}
+  @keyframes cfmIn{from{transform:translateY(20px) scale(.95);opacity:0}to{transform:none;opacity:1}}
+  .confirm-box::before,.confirm-box::after{content:"";position:absolute;left:14px;right:14px;border-top:1px solid var(--ink);}
+  .confirm-box::before{top:8px;}
+  .confirm-box::after{bottom:8px;}
+  .confirm-stamp{position:absolute;top:-12px;right:18px;background:var(--accent);color:var(--paper);
+    font-family:'Special Elite';font-size:10px;letter-spacing:3px;padding:4px 12px;transform:rotate(2deg);}
+  .confirm-box h3{font-family:'Old Standard TT',serif;font-weight:700;font-size:20px;
+    color:var(--ink);margin:0 0 12px;letter-spacing:.5px;}
+  .confirm-box p{font-family:'Old Standard TT',serif;font-size:14px;line-height:1.65;
+    color:var(--ink-soft);margin:0 0 22px;}
+  .confirm-btns{display:flex;gap:10px;}
+  .confirm-btns button{flex:1;padding:11px 14px;font-family:'Special Elite';font-size:13px;
+    letter-spacing:1.5px;cursor:pointer;border:1px solid var(--ink);transition:.15s;}
+  #confirmCancel{background:var(--paper);color:var(--ink);}
+  #confirmCancel:hover{background:var(--paper-light);}
+  #confirmOk{background:var(--accent);color:var(--paper);border-color:var(--accent);}
+  #confirmOk:hover{background:var(--ink);border-color:var(--ink);}
+
+  /* 下單步驟 */
+  .order-steps{margin-top:14px;border:1px solid var(--ink);padding:14px 16px 12px;position:relative;background:var(--paper);}
+  .steps-title{font-family:'Old Standard TT',serif;font-weight:700;font-size:15px;letter-spacing:2px;
+    text-align:center;text-transform:uppercase;border-bottom:1px solid var(--ink);padding-bottom:7px;margin-bottom:10px;}
+  .steps-title-zh{font-family:'Old Standard TT',serif;font-size:13px;letter-spacing:3px;margin-left:10px;color:var(--ink-soft);}
+  .steps-list{list-style:none;margin:0;padding:0;}
+  .steps-list li{display:flex;align-items:flex-start;gap:9px;padding:7px 0;}
+  .steps-list li+li{border-top:1px dashed var(--ink-soft);}
+  .step-no{font-size:17px;color:var(--accent);flex:0 0 auto;line-height:1.2;}
+  .step-body{display:flex;flex-direction:column;gap:1px;}
+  .step-main{font-family:'Special Elite';font-size:13px;line-height:1.45;color:var(--ink);}
+  .step-sub{font-family:'Special Elite';font-size:10.5px;line-height:1.45;color:var(--ink-soft);letter-spacing:.3px;}
+  .step-main b{font-family:'Special Elite';color:var(--accent);}
+  .steps-note{font-family:'Special Elite';font-size:10px;letter-spacing:.5px;text-align:center;
+    color:var(--ink-soft);line-height:1.6;margin:10px 0 0;padding-top:8px;border-top:1px solid var(--ink-soft);}
+
+  /* 跳轉前確認頁 */
+  .gate-check{font-family:'Old Standard TT',serif;font-size:34px;color:var(--accent);text-align:center;line-height:1;margin-bottom:4px;}
+  .gate-paste{display:inline-block;border:1px solid var(--accent);color:var(--accent);
+    font-family:'Special Elite';font-size:12px;letter-spacing:1px;padding:2px 8px;margin:0 2px;}
+  #gateOk{background:var(--accent);color:var(--paper);border-color:var(--accent);}
+  #gateOk:hover{background:var(--ink);border-color:var(--ink);}
+
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s;}
+  .reveal.in{opacity:1;transform:none;}
+
+  /* ===== Tea Finder embedded (namespaced, clean) ===== */
+  .booking, .pickup-note, .notice, .steps-list, .addr, #visit{
+    font-family:'Old Standard TT','Noto Serif TC',serif;
+  }
+#finder .wrap{max-width:760px;margin:0 auto;padding:0 22px;position:relative;z-index:2}
+#finder .masthead{padding:34px 0 18px;border-bottom:3px double #1c1813}
+#finder .kicker{font-family:'Special Elite';font-size:11px;letter-spacing:.42em;text-transform:uppercase;
+  display:flex;justify-content:space-between;color:#6e675a;}
+#finder .title{font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(40px,11vw,86px);
+  line-height:.92;letter-spacing:-.01em;text-align:center;margin:14px 0 6px;}
+#finder .subtitle{font-family:'Playfair Display',serif;font-style:italic;font-weight:400;
+  text-align:center;font-size:clamp(15px,4vw,21px);color:#1c1813;}
+#finder .dek{text-align:center;font-size:12px;letter-spacing:.04em;color:#6e675a;
+  margin-top:12px;font-family:'Noto Serif TC',serif;}
+#finder .intro{padding:30px 0 8px;border-bottom:1px solid #1c1813}
+#finder .intro p{font-family:'Noto Serif TC',serif;font-size:15px;color:#1c1813;max-width:54ch;margin:0 auto;text-align:center;font-weight:300}
+#finder .intro .en{font-family:'Special Elite';font-size:12px;letter-spacing:.06em;color:#6e675a;margin-top:10px}
+#finder .stage{padding:26px 0 60px}
+#finder .stepbar{display:flex;align-items:center;gap:10px;justify-content:center;
+  font-family:'Special Elite';font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:#6e675a;
+  margin-bottom:26px;}
+#finder .stepbar .dot{width:7px;height:7px;border:1px solid #1c1813;border-radius:50%}
+#finder .stepbar .dot.on{background:#1c1813}
+#finder .q-eyebrow{font-family:'Special Elite';font-size:11px;letter-spacing:.4em;text-transform:uppercase;
+  color:#6e2415;text-align:center;margin-bottom:8px;}
+#finder .q-title{font-family:'Playfair Display',serif;font-weight:500;font-size:clamp(24px,6.5vw,40px);
+  line-height:1.05;text-align:center;margin-bottom:6px;}
+#finder .q-sub{font-family:'Noto Serif TC',serif;font-weight:300;text-align:center;color:#6e675a;font-size:14px;margin-bottom:30px}
+#finder .choices{display:grid;gap:14px}
+#finder .choice{border:1.5px solid #1c1813;background:transparent;cursor:pointer;
+  padding:18px 20px;text-align:left;display:flex;gap:16px;align-items:flex-start;
+  transition:transform .18s ease, background .18s ease, color .18s ease;
+  position:relative;font-family:inherit;color:#1c1813;}
+#finder .choice:hover{background:#1c1813;color:#e9e2cf;transform:translate(-2px,-2px);box-shadow:5px 5px 0 #6e2415}
+#finder .choice:hover .c-num,#finder .choice:hover .c-desc{color:#e9e2cf}
+#finder .choice:focus-visible{outline:3px solid #6e2415;outline-offset:3px}
+#finder .c-num{font-family:'Playfair Display',serif;font-size:30px;line-height:1;color:#6e2415;min-width:34px}
+#finder .c-body{flex:1}
+#finder .c-label{font-family:'Playfair Display',serif;font-size:19px;font-weight:500;line-height:1.15}
+#finder .c-zh{font-family:'Noto Serif TC',serif;font-weight:300;font-size:14px;margin-top:2px}
+#finder .c-desc{font-size:12.5px;color:#6e675a;margin-top:8px;letter-spacing:.01em;line-height:1.5}
+#finder .meter{display:flex;justify-content:center;gap:0;margin:34px 0 0}
+#finder .meter .seg{height:5px;width:46px;border:1px solid #1c1813;border-right:none}
+#finder .meter .seg:last-child{border-right:1px solid #1c1813}
+#finder .meter .seg.fill{background:#6e2415}
+#finder .meter-cap{display:flex;justify-content:space-between;max-width:280px;margin:8px auto 0;font-family:'Special Elite';font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:#6e675a}
+#finder .back{display:block;margin:30px auto 0;background:none;border:none;cursor:pointer;
+  font-family:'Special Elite';font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:#6e675a;
+  border-bottom:1px solid transparent;padding-bottom:2px;}
+#finder .back:hover{color:#1c1813;border-bottom-color:#1c1813}
+#finder .result{display:none;animation:finder_fade .5s ease}
+#finder .result.show{display:block}
+
+@keyframes finder_fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+#finder .r-eyebrow{font-family:'Special Elite';font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:#6e2415;text-align:center}
+#finder .r-card{border:2px solid #1c1813;margin-top:18px;background:#e9e2cf}
+#finder .r-head{padding:24px 24px 18px;border-bottom:1.5px solid #1c1813;text-align:center;position:relative}
+#finder .r-roast{font-family:'Special Elite';font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:#6e675a}
+#finder .r-name{font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(30px,8vw,52px);line-height:.98;margin:8px 0 4px}
+#finder .r-en{font-family:'Playfair Display',serif;font-style:italic;font-size:16px;color:#6e2415}
+#finder .r-body{padding:22px 24px}
+#finder .r-tagline{font-family:'Noto Serif TC',serif;font-weight:300;font-size:15.5px;text-align:center;line-height:1.7;margin-bottom:22px}
+#finder .r-specs{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #1c1813;border-left:1px solid #1c1813}
+#finder .r-spec{border-right:1px solid #1c1813;border-bottom:1px solid #1c1813;padding:12px 14px}
+#finder .r-spec dt{font-family:'Special Elite';font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;color:#6e675a;margin-bottom:4px}
+#finder .r-spec dd{font-family:'Noto Serif TC',serif;font-size:14px;font-weight:400}
+#finder .r-notes{margin-top:18px}
+#finder .r-notes .lab{font-family:'Special Elite';font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;color:#6e675a;margin-bottom:8px}
+#finder .r-map{margin-top:22px;padding-top:18px;border-top:1px solid #1c1813}
+#finder .r-map .lab{font-family:'Special Elite';font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;color:#6e675a;margin-bottom:6px}
+#finder .map-hint{font-family:'Noto Serif TC',serif;font-weight:300;font-size:12.5px;color:#6e675a;line-height:1.55;margin-bottom:10px}
+#finder #map-svg{width:100%;height:auto;display:block}
+#finder .map-axis{stroke:#1c1813;stroke-width:1}
+#finder .map-grid{stroke:#1c1813;stroke-width:.5;opacity:.18}
+#finder .map-axlabel{font-family:'Special Elite';font-size:8px;letter-spacing:.18em;text-transform:uppercase;fill:#6e675a}
+#finder .map-dot{fill:#e9e2cf;stroke:#1c1813;stroke-width:1.2}
+#finder .map-dot-label{font-family:'Noto Serif TC',serif;font-size:8.5px;fill:#6e675a}
+#finder .map-you{fill:#6e2415;stroke:#e9e2cf;stroke-width:2}
+#finder .map-you-label{font-family:'Playfair Display',serif;font-size:11px;font-weight:600;fill:#6e2415}
+#finder .map-you-ring{fill:none;stroke:#6e2415;stroke-width:1.2;opacity:.5}
+#finder @media (prefers-reduced-motion:no-preference){.map-you-ring{animation:finder_pulse 2.4s ease-out infinite}
+#finder }
+@keyframes pulse{0%{r:7;opacity:.6}
+#finder 70%{r:20;opacity:0}
+#finder 100%{r:20;opacity:0}
+#finder }
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+#finder .chip{font-family:'Special Elite';font-size:11px;letter-spacing:.05em;border:1px solid #1c1813;padding:5px 11px;border-radius:20px}
+#finder .r-for{margin-top:20px;font-family:'Noto Serif TC',serif;font-size:14px;background:var(--paper-light);border:1px dashed #1c1813;padding:14px 16px;text-align:center}
+#finder .r-for b{font-weight:600}
+#finder .r-actions{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap}
+#finder .btn{flex:1;min-width:150px;text-align:center;cursor:pointer;font-family:'Special Elite';font-size:12px;letter-spacing:.16em;text-transform:uppercase;padding:15px 18px;border:1.5px solid #1c1813;background:#1c1813;color:#e9e2cf;text-decoration:none;transition:.18s}
+#finder .btn:hover{background:#6e2415;border-color:#6e2415}
+#finder .btn.ghost{background:transparent;color:#1c1813}
+#finder .btn.ghost:hover{background:#1c1813;color:#e9e2cf}
+#finder .alt{margin-top:26px;border-top:1px solid #1c1813;padding-top:18px}
+#finder .alt .lab{font-family:'Special Elite';font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;color:#6e675a;text-align:center;margin-bottom:12px}
+#finder .alt-row{display:flex;justify-content:center;gap:22px;flex-wrap:wrap}
+#finder .alt-item{text-align:center;cursor:pointer;background:none;border:none;font-family:inherit}
+#finder .alt-item .an{font-family:'Playfair Display',serif;font-size:17px;border-bottom:1px solid transparent;padding-bottom:2px}
+#finder .alt-item:hover .an{border-bottom-color:#6e2415;color:#6e2415}
+#finder .alt-item .ae{display:block;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#6e675a;margin-top:3px}
+#finder .floral{margin-top:26px;border-top:1px dashed #1c1813;padding-top:18px}
+#finder .floral-lab{font-family:'Special Elite';font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;color:#6e2415;text-align:center}
+#finder .floral-intro{font-family:'Noto Serif TC',serif;font-weight:300;font-size:12.5px;color:#6e675a;text-align:center;margin:8px auto 16px;max-width:38ch}
+#finder .floral-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+#finder .floral-card{border:1px solid #1c1813;padding:14px 14px 16px}
+#finder .floral-card .fn{font-family:'Playfair Display',serif;font-size:16px;font-weight:500;line-height:1.1}
+#finder .floral-card .fe{font-family:'Playfair Display',serif;font-style:italic;font-size:11.5px;color:#6e675a;margin-top:2px}
+#finder .floral-card .fnote{font-family:'Noto Serif TC',serif;font-weight:300;font-size:12px;margin-top:9px;line-height:1.55}
+#finder .floral-card .fchips{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+#finder .floral-card .fchip{font-family:'Special Elite';font-size:9.5px;letter-spacing:.04em;border:1px solid #1c1813;padding:3px 8px;border-radius:14px}
+#finder .foot{border-top:3px double #1c1813;padding:24px 0 50px;text-align:center}
+#finder .foot .moby{font-family:'Playfair Display',serif;font-style:italic;font-size:14px}
+#finder .foot .meta{font-family:'Special Elite';font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:#6e675a;margin-top:8px}
+#finder .foot a{color:#6e2415;text-decoration:none;border-bottom:1px solid #6e2415}
+#finder @media (max-width:560px){.r-specs{grid-template-columns:1fr}
+#finder .floral-grid{grid-template-columns:1fr}
+#finder .choice{padding:15px 16px;gap:12px}
+#finder .c-num{font-size:24px;min-width:26px}
+#finder }
+@media (prefers-reduced-motion:reduce){.choice:hover{transform:none}}
+
+  /* ===== 分頁：導覽目前頁、點單頁精簡報頭、頁面互相導引 ===== */
+  nav a.here{border-color:var(--paper);}
+  .masthead.compact{padding:8px 0 10px;}
+  .masthead.compact h1{font-size:clamp(34px,6.5vw,68px);}
+  .masthead.compact .sub{margin-top:6px;}
+  .masthead.compact .mast-dog{width:clamp(50px,7vw,76px);bottom:-6px;}
+  .section.menu-first{margin-top:18px;padding-top:30px;}
+  .teaser{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:4px 14px;margin-top:14px;padding:10px 14px;
+    border:1px solid var(--rule);background:var(--paper-light);color:var(--ink);text-decoration:none;text-align:center;transition:.18s;}
+  .teaser .t-k{font-family:'Special Elite';font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);}
+  .teaser .t-h{font-family:'Noto Serif TC',serif;font-size:14px;}
+  .teaser .t-go{font-family:'Special Elite';font-size:12px;letter-spacing:1px;color:var(--accent);}
+  .teaser:hover{background:var(--ink);color:var(--paper);}
+  .teaser:hover .t-k,.teaser:hover .t-go{color:var(--paper);}
+  .order-cta{text-align:center;}
+  .order-cta .cta-deck{font-family:'Noto Serif TC',serif;font-size:15px;line-height:1.8;color:var(--ink-soft);max-width:34em;margin:0 auto;}
+  .cta-btns{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:20px;}
+  .cta{min-width:160px;padding:14px 22px;font-family:'Special Elite';font-size:13px;letter-spacing:1.5px;text-decoration:none;
+    color:var(--ink);background:var(--paper-light);border:2px solid var(--ink);transition:.18s;}
+  .cta:hover{background:var(--ink);color:var(--paper);}
+  .cta.pri{background:var(--ink);color:var(--paper);}
+  .cta.pri:hover{background:var(--accent);border-color:var(--accent);}
