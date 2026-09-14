@@ -809,7 +809,7 @@
      發起人建立揪團 → 分享連結到群組 → 同事各自用手機點 → 發起人截止後一次送到 LINE
      後端：apps-script/group-order.gs（部署方式見 apps-script/README.md）
      ============================================================ */
-  const GROUP_API = "";   // ★ 揪團 Apps Script 網址（…/exec）；留空＝不顯示揪團功能
+  const GROUP_API = "https://script.google.com/macros/s/AKfycbzBKPxpD1ZzV1l6cNJrzBzinW4gTPlhwYOVHC2gDNySOOs2971ht4czXGk7OSwv9DfjsA/exec";   // ★ 揪團 Apps Script 網址（…/exec）；留空＝不顯示揪團功能
   const qs=new URLSearchParams(location.search);
   const G={id:qs.get('g'), admin:null, info:null, entries:[], me:null, loaded:false};
   const store={   // 記住「我在這團的點單」與發起人管理碼（存在這支手機的瀏覽器）
