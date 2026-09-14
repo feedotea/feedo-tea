@@ -592,3 +592,12 @@
   .cta:hover{background:var(--ink);color:var(--paper);}
   .cta.pri{background:var(--ink);color:var(--paper);}
   .cta.pri:hover{background:var(--accent);border-color:var(--accent);}
+
+  /* 發起人 QR Code（電腦上顯示，手機掃描後即為發起人） */
+  .gb-qr{display:flex;align-items:center;gap:16px;margin-top:10px;padding-top:10px;border-top:1px dotted rgba(28,24,19,.5);}
+  .gb-qr-img{flex:0 0 auto;background:#fff;padding:6px;border:1px solid var(--rule);}
+  .gb-qr-img svg{display:block;width:128px;height:128px;}
+  .gb-qr-txt{font-size:12.5px;line-height:1.7;}
+  .gb-qr-txt b{color:var(--ink);}
+  .gb-qr-txt span{color:var(--accent);}
+  @media(max-width:640px){.gb-qr{display:none !important;}}

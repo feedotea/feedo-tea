@@ -72,6 +72,10 @@
         <div class="gb-admin g-hostonly">
           🔑 你是<b>發起人</b>：現在的網址是管理連結，請自己保存（<button type="button" id="gbCopyAdmin">複製管理連結</button>），分享給同事請用上方按鈕。<br>
           步驟：① 分享連結給同事 ② 時間到或按「截止收單」 ③ 在下方填預訂資料，按「複製訂單 &rarr; 前往 LINE」送給店家
+          <div class="gb-qr" id="gbQr" hidden>
+            <div class="gb-qr-img" id="gbQrImg"></div>
+            <div class="gb-qr-txt"><b>📱 想用手機管理這一團？</b><br>用手機相機或 LINE 掃這個 QR Code，手機就能以發起人身分截止收單、送出訂單。<br><span>這是管理用的 QR Code，請勿拍照分享到群組。</span></div>
+          </div>
         </div>
         <a class="gb-exit" href="./">&larr; 離開揪團，回一般點單</a>
       </div>
@@ -897,6 +901,22 @@
       </li>`;
     }).join('') : '<li class="cl-empty">還沒有人點，把連結分享到群組吧！</li>';
     updateMineState();
+    renderHostQr();
+  }
+  // 發起人在電腦上：顯示管理連結的 QR Code，手機一掃就是發起人
+  // （QR 在瀏覽器本機產生，管理連結不會送到外部網站；手機螢幕不顯示也不載入）
+  const QR_LIB="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js";
+  let qrShownFor='';
+  function renderHostQr(){
+    if(!G.admin || qrShownFor===hostUrl() || matchMedia('(max-width:640px)').matches) return;
+    const draw=()=>{
+      const qr=qrcode(0,'M'); qr.addData(hostUrl()); qr.make();
+      $id('gbQrImg').innerHTML=qr.createSvgTag({cellSize:4, margin:2, scalable:true});
+      $id('gbQr').hidden=false; qrShownFor=hostUrl();
+    };
+    if(window.qrcode) return draw();
+    if($id('qrLib')) return;
+    const sc=document.createElement('script'); sc.id='qrLib'; sc.src=QR_LIB; sc.onload=draw; document.head.appendChild(sc);
   }
   // 提醒「我的點單」有沒有送出
   function updateMineState(){
