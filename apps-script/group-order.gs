@@ -15,6 +15,7 @@ const MAX_ITEMS = 50;        // 每人最多幾種規格
 const MAX_QTY = 999;         // 每種規格最多幾杯
 const MAX_DAYS = 14;         // 截止時間最多設定幾天後
 const REOPEN_MINUTES = 30;   // 已過截止時間又重新開放時，自動延長幾分鐘
+const RETENTION_DAYS = 30;   // 揪團截止後幾天自動刪除（隱私權說明寫的保存期間，改這裡要一起改說明）
 
 function doGet() {
   return json_({ ok: true, service: 'feedo-group-order' });
@@ -140,7 +141,49 @@ function setClosed_(b) {
   return getGroup_(g.id, b.admin);
 }
 
+/* ---------- 自動刪除 ---------- */
+
+// 由每天的時間觸發器執行：刪除截止超過 RETENTION_DAYS 天的揪團，以及那些團的所有點單
+function purgeExpired() {
+  const lock = LockService.getScriptLock();
+  lock.waitLock(30000);
+  try {
+    const cut = Date.now() - RETENTION_DAYS * 864e5;
+    const gs = sheet_('groups', GROUP_HEAD);
+    const expired = rows_(gs).filter(function (g) {
+      const d = new Date(toIso_(g.deadline)).getTime();
+      return !isNaN(d) && d < cut;
+    });
+    if (!expired.length) return 0;
+
+    const ids = {};
+    expired.forEach(function (g) { ids[String(g.id)] = true; });
+    const es = sheet_('entries', ENTRY_HEAD);
+    deleteRows_(es, rows_(es).filter(function (r) { return ids[String(r.groupId)]; }));
+    deleteRows_(gs, expired);
+    return expired.length;
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+// 在 Apps Script 編輯器手動執行一次：建立每天台灣時間凌晨 3 點的自動刪除
+// 重複執行只會留下一個觸發器
+function installPurgeTrigger() {
+  ScriptApp.getProjectTriggers().forEach(function (t) {
+    if (t.getHandlerFunction() === 'purgeExpired') ScriptApp.deleteTrigger(t);
+  });
+  ScriptApp.newTrigger('purgeExpired').timeBased().everyDays(1).atHour(3).inTimezone('Asia/Taipei').create();
+}
+
 /* ---------- 試算表工具 ---------- */
+
+// 由下往上刪，前面的列號才不會跑掉
+function deleteRows_(sh, rows) {
+  rows.map(function (r) { return r._row; })
+    .sort(function (a, b) { return b - a; })
+    .forEach(function (n) { sh.deleteRow(n); });
+}
 
 function sheet_(name, head) {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
