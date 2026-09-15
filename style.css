@@ -87,6 +87,31 @@
     padding:10px 4px;margin:6px 0;break-inside:avoid;color:var(--accent);}
   @media(max-width:760px){.lead-cols{column-count:1;}}
 
+  /* 籌備手記（故事頁頭版，中文內文） */
+  #manifesto{scroll-margin-top:56px;}
+  @media(max-width:680px){#manifesto{scroll-margin-top:84px;}}
+  #manifesto h2{text-transform:none;letter-spacing:2px;line-height:1.2;}
+  #manifesto .lead-cols{font-size:15px;line-height:1.9;text-align:left;}
+  #manifesto .lead-cols p{text-indent:0;}
+  #manifesto .lead-cols p:first-of-type::first-letter{font-size:40px;line-height:1;padding:2px 8px 0 0;}
+  .notes{margin-top:30px;border-top:3px double var(--rule);padding-top:18px;}
+  .notes-h{text-align:center;font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(20px,3.4vw,28px);letter-spacing:2px;margin-bottom:16px;}
+  .notes-grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--rule);border-left:1px solid var(--rule);}
+  .note{padding:14px 14px 16px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);background:var(--paper-light);}
+  .note-k{font-family:'Special Elite',monospace;font-size:11px;letter-spacing:2px;color:var(--accent);}
+  .note h5{font-size:19px;font-weight:700;margin:4px 0 8px;}
+  .note p:last-child{font-size:14px;line-height:1.8;color:var(--ink-soft);}
+  @media(max-width:860px){.notes-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:520px){.notes-grid{grid-template-columns:1fr;}}
+  .notes.foam{max-width:680px;margin-left:auto;margin-right:auto;font-size:15px;line-height:1.9;}
+  .notes.foam > p{margin-bottom:10px;}
+  .foam-lead{text-align:center;font-weight:700;font-size:17px;}
+  .foam-dl{margin:14px 0;border-top:1px solid var(--rule);}
+  .foam-dl > div{display:grid;grid-template-columns:130px 1fr;gap:4px 16px;padding:12px 0;border-bottom:1px dotted var(--rule);}
+  .foam-dl dt{font-weight:700;color:var(--accent);}
+  .foam-dl dd{color:var(--ink-soft);}
+  @media(max-width:520px){.foam-dl > div{grid-template-columns:1fr;}}
+
   /* 轉版指引 (lead → finder) */
   .turn-to{text-align:center;margin:22px 0 4px;}
   .turn-to hr{border:none;border-top:2px solid var(--rule);margin:0 0 12px;}
