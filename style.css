@@ -17,16 +17,24 @@
     mix-blend-mode:multiply;opacity:.5;}
   .gazette > *{position:relative;z-index:2;}
 
-  /* ===== NAV (報紙索引列) ===== */
-  nav{position:sticky;top:0;z-index:100;background:var(--ink);color:var(--paper);
-    display:flex;justify-content:center;flex-wrap:wrap;gap:2px;padding:8px 12px;}
-  nav a{color:var(--paper);text-decoration:none;font-family:'Special Elite',monospace;
-    font-size:11px;letter-spacing:1.5px;text-transform:uppercase;padding:5px 13px;
-    border-bottom:2px solid transparent;transition:.2s;}
-  nav a:hover{border-color:var(--paper);}
-  nav a.feature{color:var(--paper);border:1px solid var(--accent);background:var(--accent);
-    border-radius:2px;}
-  nav a.feature:hover{background:var(--paper);color:var(--ink);border-color:var(--paper);}
+  /* ===== NAV (報紙索引列)：中文、看得清楚，跟 feedomuseum.com 同一套 ===== */
+  /* 不吸頂：維持原本的行為（.gazette > * 的 position:relative 本來就會蓋掉 sticky） */
+  nav{background:var(--paper);color:var(--ink);
+    display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:4px 22px;
+    border-bottom:1px solid var(--rule);padding:10px 46px;}
+  nav a{color:var(--ink);text-decoration:none;font-family:'Noto Serif TC',serif;
+    font-size:15px;letter-spacing:0;text-transform:none;padding:8px 2px;
+    border-bottom:2px solid transparent;transition:.15s;}
+  nav a:hover{border-color:var(--ink);}
+  nav a.feature{background:var(--ink);color:var(--paper);padding:8px 16px;border:none;border-radius:0;}
+  nav a.feature:hover{background:var(--accent);color:var(--paper);}
+
+  /* 手機版選單：三欄格線，一格一個點擊區 */
+  @media(max-width:600px){
+    nav{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:12px 22px;}
+    nav a{text-align:center;padding:11px 4px;font-size:14px;border-bottom:1px solid rgba(28,24,19,.25);}
+    nav a.feature{grid-column:1/-1;border:none;}
+  }
 
   .pad{padding:0 46px;}
   @media(max-width:680px){.pad{padding:0 22px;}}
@@ -38,6 +46,7 @@
   .masthead{text-align:center;border-top:3px double var(--rule);border-bottom:3px double var(--rule);padding:10px 0 14px;position:relative;}
   .masthead h1{font-family:'Playfair Display',serif;font-weight:900;
     font-size:clamp(44px,9vw,104px);line-height:.9;letter-spacing:1px;}
+  .masthead h1 a{color:inherit;text-decoration:none;}
   .masthead .sub{font-family:'Old Standard TT';font-style:italic;font-size:clamp(11px,2vw,15px);
     letter-spacing:3px;text-transform:uppercase;margin-top:8px;}
   /* 報頭會動的 logo 狗 */
@@ -49,7 +58,15 @@
   @keyframes dogIn{0%{opacity:0;transform:scale(.4) translateY(20px) rotate(-8deg);}100%{opacity:1;transform:none;}}
   @keyframes dogBob{0%,100%{transform:translateY(0) rotate(0);}50%{transform:translateY(-7px) rotate(2deg);}}
   @keyframes dogTilt{0%,100%{transform:rotate(0);}30%{transform:rotate(-7deg);}65%{transform:rotate(5deg);}}
-  @media(max-width:680px){.mast-dog{width:62px;right:0;bottom:-2px;}}
+  /* 手機版：幫報頭右下角的狗留一條走道，報頭上排也縮一點才不會擠成兩行 */
+  @media(max-width:680px){
+    .mast-dog{width:58px;right:0;bottom:-2px;}
+    .masthead h1{padding-right:54px;}
+    .masthead .sub{padding-right:62px;letter-spacing:2px;}
+    .masthead-top{font-size:8.5px;letter-spacing:.3px;gap:8px;}
+    .masthead-top span{white-space:nowrap;}
+    .dateline{font-size:8.5px;letter-spacing:.4px;}
+  }
   .dateline{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;
     font-family:'Special Elite';font-size:10px;letter-spacing:1px;text-transform:uppercase;
     color:var(--ink-soft);border-bottom:1px solid var(--rule);padding:6px 0;}
@@ -82,9 +99,6 @@
   .lead-cols p:first-of-type{text-indent:0;}
   .lead-cols p:first-of-type::first-letter{font-family:'Playfair Display',serif;font-weight:900;
     font-size:54px;line-height:.78;float:left;padding:4px 8px 0 0;color:var(--accent);}
-  .pull{font-family:'Playfair Display',serif;font-style:italic;font-size:18px;line-height:1.35;
-    text-align:center;border-top:2px solid var(--rule);border-bottom:2px solid var(--rule);
-    padding:10px 4px;margin:6px 0;break-inside:avoid;color:var(--accent);}
   @media(max-width:760px){.lead-cols{column-count:1;}}
 
   /* 籌備手記（故事頁頭版，中文內文） */
@@ -99,18 +113,11 @@
   .notes-grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--rule);border-left:1px solid var(--rule);}
   .note{padding:14px 14px 16px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);background:var(--paper-light);}
   .note-k{font-family:'Special Elite',monospace;font-size:11px;letter-spacing:2px;color:var(--accent);}
-  .note h5{font-size:19px;font-weight:700;margin:4px 0 8px;}
+  .note h4{font-size:19px;font-weight:700;margin:4px 0 8px;}
   .note p:last-child{font-size:14px;line-height:1.8;color:var(--ink-soft);}
   @media(max-width:860px){.notes-grid{grid-template-columns:repeat(2,1fr);}}
   @media(max-width:520px){.notes-grid{grid-template-columns:1fr;}}
-  .notes.foam{max-width:680px;margin-left:auto;margin-right:auto;font-size:15px;line-height:1.9;}
-  .notes.foam > p{margin-bottom:10px;}
-  .foam-lead{text-align:center;font-weight:700;font-size:17px;}
-  .foam-dl{margin:14px 0;border-top:1px solid var(--rule);}
-  .foam-dl > div{display:grid;grid-template-columns:130px 1fr;gap:4px 16px;padding:12px 0;border-bottom:1px dotted var(--rule);}
-  .foam-dl dt{font-weight:700;color:var(--accent);}
-  .foam-dl dd{color:var(--ink-soft);}
-  @media(max-width:520px){.foam-dl > div{grid-template-columns:1fr;}}
+
 
   /* 轉版指引 (lead → finder) */
   .turn-to{text-align:center;margin:22px 0 4px;}
@@ -131,19 +138,6 @@
   .sec-banner h3{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(28px,5vw,46px);
     text-transform:uppercase;line-height:1;margin-top:6px;}
 
-  /* 品牌故事兩欄 */
-  .story-cols{column-count:2;column-gap:26px;column-rule:1px solid rgba(28,24,19,.4);
-    text-align:justify;font-size:13.5px;line-height:1.64;hyphens:auto;}
-  .story-cols p{margin-bottom:9px;text-indent:15px;}
-  .story-cols p:first-of-type{text-indent:0;}
-  .story-cols p:first-of-type::first-letter{font-family:'Playfair Display',serif;font-weight:900;
-    font-size:50px;line-height:.78;float:left;padding:4px 8px 0 0;color:var(--accent);}
-  .story-cols .subhead{font-family:'Playfair Display',serif;font-weight:700;font-size:15px;
-    text-transform:uppercase;text-align:center;margin:4px 0 6px;break-after:avoid;}
-  .philo{break-inside:avoid;border:1px solid var(--rule);padding:12px 14px;margin:8px 0;}
-  .philo li{list-style:none;font-family:'Old Standard TT';font-size:12.5px;line-height:1.5;padding:3px 0;}
-  .philo li b{font-family:'Playfair Display';font-style:italic;color:var(--accent);}
-  @media(max-width:680px){.story-cols{column-count:1;}}
 
   /* ===== 茶單 (報紙菜單 + 點餐) ===== */
   .menu-frame{border:3px double var(--rule);padding:22px 26px;}
@@ -596,7 +590,8 @@
 @media (prefers-reduced-motion:reduce){.choice:hover{transform:none}}
 
   /* ===== 分頁：導覽目前頁、點單頁精簡報頭、頁面互相導引 ===== */
-  nav a.here{border-color:var(--paper);}
+  nav a.here{border-bottom-color:var(--ink);}
+  nav a.feature.here{border-bottom-color:transparent;}
   .masthead.compact{padding:8px 0 10px;}
   .masthead.compact h1{font-size:clamp(34px,6.5vw,68px);}
   .masthead.compact .sub{margin-top:6px;}

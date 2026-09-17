@@ -8,18 +8,19 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Oswald:wght@500;600;700&family=Special+Elite&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=20260915">
+<link rel="stylesheet" href="style.css?v=20260918">
 </head>
 <body>
 <div class="gazette">
 
   <nav>
     <a href="https://feedomuseum.com/" class="home">&larr; 首頁</a>
-    <a href="#menu" class="here">Order 點單</a>
-    <a href="#menu" data-mode="delivery">Delivery</a>
-    <a href="story.html">Our Story</a>
+    <a href="#menu" class="here">茶單與訂購</a>
+    <a href="#menu" data-mode="delivery">外送</a>
+    <a href="https://feedomuseum.com/story.html">品牌故事</a>
+    <a href="https://feedomuseum.com/faq.html">常見問題</a>
+    <a href="#visit">來店資訊</a>
     <a href="story.html#finder" class="feature">Find Your Brew</a>
-    <a href="#visit">Find Us</a>
   </nav>
 
   <div class="pad" id="top">
@@ -30,8 +31,8 @@
       <span>Price: One Warm Cup</span>
     </div>
     <div class="masthead compact">
-      <h1>The Feedo Gazette</h1>
-      <div class="sub">&mdash; Tea &middot; Craft &middot; Curated Living Since The First Brew &mdash;</div>
+      <h1><a href="https://feedomuseum.com/">The Feedo Times</a></h1>
+      <div class="sub">&mdash; Order &amp; Delivery Edition &mdash;</div>
       <div class="mast-dog" id="mastDog" title="汪!"><img src="images/feedo-dog.png" alt="Feedo dog"></div>
     </div>
     <div class="dateline">
@@ -1078,6 +1079,19 @@
   // 從故事頁「去點這杯」過來（?tea=品項編號）：直接打開該茶品的選規格視窗
   const teaParam=qs.get('tea');
   if(!G.id && teaParam!==null && MENU[+teaParam]){ menuSec.scrollIntoView(); openItem(+teaParam); }
+</script>
+<script>
+/* 本機預覽用：網址是 localhost 時，把跨站連結指到本機伺服器。正式網站不會執行到這裡。 */
+(function(){
+  var LOCAL = {"feedomuseum.com":"5178", "claim.feedomuseum.com":"5180"};
+  if(!/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) return;
+  document.querySelectorAll('a[href^="https://"]').forEach(function(a){
+    try{
+      var u = new URL(a.href), port = LOCAL[u.hostname];
+      if(port) a.href = "http://localhost:" + port + u.pathname + u.search + u.hash;
+    }catch(e){}
+  });
+})();
 </script>
 </body>
 </html>
