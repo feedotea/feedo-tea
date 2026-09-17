@@ -176,8 +176,14 @@
   .mrow .box{width:22px;height:22px;border:2px solid var(--ink);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Special Elite';font-size:15px;color:var(--accent);background:var(--paper-light);transition:.15s;}
   .mrow.on .box{background:var(--accent);color:var(--paper);}
   .mrow .nm{flex:1;}
-  .mrow .nm .en{font-family:'Playfair Display',serif;font-weight:700;font-size:16px;}
-  .mrow .nm .zh{font-family:'Old Standard TT';font-style:italic;font-size:12.5px;color:var(--ink-soft);}
+  /* 中文是掃描目標，放大當主體；英文縮小放後面，與品項彈窗同一套強弱 */
+  .mrow .nm .zh{font-family:'Noto Serif TC',serif;font-weight:600;font-size:16px;}
+  .mrow .nm .en{font-family:'Playfair Display',serif;font-style:italic;font-size:12.5px;color:var(--ink-soft);}
+  /* 手機版名稱太長會斷在奇怪的地方，改成中文一行、英文一行，跟品項彈窗一樣 */
+  @media(max-width:600px){
+    .mrow .nm .zh,.mrow .nm .en{display:block;}
+    .mrow .nm .en{line-height:1.35;}
+  }
   .mrow .pr{font-family:'Oswald',sans-serif;font-weight:600;font-size:17px;white-space:nowrap;}
   .qty{display:none;align-items:center;gap:7px;margin-right:4px;}
   .mrow.on .qty{display:flex;}
