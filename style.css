@@ -497,8 +497,9 @@
 #finder .stepbar .dot.on{background:#1c1813}
 #finder .q-eyebrow{font-family:'Special Elite';font-size:11px;letter-spacing:.4em;text-transform:uppercase;
   color:#6e2415;text-align:center;margin-bottom:8px;}
-#finder .q-title{font-family:'Playfair Display',serif;font-weight:500;font-size:clamp(24px,6.5vw,40px);
-  line-height:1.05;text-align:center;margin-bottom:6px;}
+#finder .q-title{font-family:'Noto Serif TC',serif;font-weight:600;font-size:clamp(22px,4.6vw,32px);
+  line-height:1.45;text-align:center;margin-bottom:8px;}
+#finder .q-title .nb{white-space:nowrap}
 #finder .q-sub{font-family:'Noto Serif TC',serif;font-weight:300;text-align:center;color:#6e675a;font-size:14px;margin-bottom:30px}
 #finder .choices{display:grid;gap:14px}
 #finder .choice{border:1.5px solid #1c1813;background:transparent;cursor:pointer;
@@ -510,9 +511,11 @@
 #finder .choice:focus-visible{outline:3px solid #6e2415;outline-offset:3px}
 #finder .c-num{font-family:'Playfair Display',serif;font-size:30px;line-height:1;color:#6e2415;min-width:34px}
 #finder .c-body{flex:1}
-#finder .c-label{font-family:'Playfair Display',serif;font-size:19px;font-weight:500;line-height:1.15}
-#finder .c-zh{font-family:'Noto Serif TC',serif;font-weight:300;font-size:14px;margin-top:2px}
-#finder .c-desc{font-size:12.5px;color:#6e675a;margin-top:8px;letter-spacing:.01em;line-height:1.5}
+/* 中文當主標、英文放下面、說明自己一行，三段各自分行才掃得動 */
+#finder .c-zh{display:block;font-family:'Noto Serif TC',serif;font-weight:600;font-size:18px;line-height:1.4}
+#finder .c-label{display:block;font-family:'Playfair Display',serif;font-style:italic;font-size:13px;font-weight:400;line-height:1.3;color:#6e675a;margin-top:1px}
+#finder .choice:hover .c-label{color:#e9e2cf}
+#finder .c-desc{display:block;font-family:'Noto Serif TC',serif;font-size:13px;color:#6e675a;margin-top:9px;line-height:1.65}
 #finder .meter{display:flex;justify-content:center;gap:0;margin:34px 0 0}
 #finder .meter .seg{height:5px;width:46px;border:1px solid #1c1813;border-right:none}
 #finder .meter .seg:last-child{border-right:1px solid #1c1813}
@@ -546,18 +549,16 @@
 #finder #map-svg{width:100%;height:auto;display:block}
 #finder .map-axis{stroke:#1c1813;stroke-width:1}
 #finder .map-grid{stroke:#1c1813;stroke-width:.5;opacity:.18}
-#finder .map-axlabel{font-family:'Special Elite';font-size:8px;letter-spacing:.18em;text-transform:uppercase;fill:#6e675a}
+#finder .map-axlabel{font-family:'Noto Serif TC',serif;font-size:10px;font-weight:600;fill:#6e675a}
 #finder .map-dot{fill:#e9e2cf;stroke:#1c1813;stroke-width:1.2}
-#finder .map-dot-label{font-family:'Noto Serif TC',serif;font-size:8.5px;fill:#6e675a}
+#finder .map-dot-label{font-family:'Noto Serif TC',serif;font-size:10px;fill:#4a443a}
 #finder .map-you{fill:#6e2415;stroke:#e9e2cf;stroke-width:2}
 #finder .map-you-label{font-family:'Playfair Display',serif;font-size:11px;font-weight:600;fill:#6e2415}
 #finder .map-you-ring{fill:none;stroke:#6e2415;stroke-width:1.2;opacity:.5}
-#finder @media (prefers-reduced-motion:no-preference){.map-you-ring{animation:finder_pulse 2.4s ease-out infinite}
-#finder }
-@keyframes pulse{0%{r:7;opacity:.6}
-#finder 70%{r:20;opacity:0}
-#finder 100%{r:20;opacity:0}
-#finder }
+  @media (prefers-reduced-motion:no-preference){
+    #finder .map-you-ring{animation:finder_pulse 2.4s ease-out infinite}
+  }
+  @keyframes finder_pulse{0%{r:7;opacity:.6}70%{r:20;opacity:0}100%{r:20;opacity:0}}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 #finder .chip{font-family:'Special Elite';font-size:11px;letter-spacing:.05em;border:1px solid #1c1813;padding:5px 11px;border-radius:20px}
 #finder .r-for{margin-top:20px;font-family:'Noto Serif TC',serif;font-size:14px;background:var(--paper-light);border:1px dashed #1c1813;padding:14px 16px;text-align:center}
@@ -588,11 +589,13 @@
 #finder .foot .moby{font-family:'Playfair Display',serif;font-style:italic;font-size:14px}
 #finder .foot .meta{font-family:'Special Elite';font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:#6e675a;margin-top:8px}
 #finder .foot a{color:#6e2415;text-decoration:none;border-bottom:1px solid #6e2415}
-#finder @media (max-width:560px){.r-specs{grid-template-columns:1fr}
-#finder .floral-grid{grid-template-columns:1fr}
-#finder .choice{padding:15px 16px;gap:12px}
-#finder .c-num{font-size:24px;min-width:26px}
-#finder }
+  /* 手機版（原本整段因為每行都被加上 #finder 前綴而失效） */
+  @media (max-width:560px){
+    #finder .floral-grid{grid-template-columns:1fr}
+    #finder .choice{padding:15px 16px;gap:12px}
+    #finder .c-num{font-size:22px;min-width:24px}
+    #finder .q-title{font-size:clamp(21px,5.6vw,26px)}
+  }
 @media (prefers-reduced-motion:reduce){.choice:hover{transform:none}}
 
   /* ===== 分頁：導覽目前頁、點單頁精簡報頭、頁面互相導引 ===== */

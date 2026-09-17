@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Oswald:wght@500;600;700&family=Special+Elite&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=20260918c">
+<link rel="stylesheet" href="style.css?v=20260918e">
 </head>
 <body>
 <div class="gazette">
@@ -96,7 +96,7 @@
       <div class="sec-banner"><div class="ed">Page Two &middot; Find Your Brew</div><h3>Tea Finder</h3></div>
 <section class="intro">
     <p>台灣烏龍的差異，幾乎都藏在兩件事裡：<b>發酵與焙火的深淺</b>，以及<b>香氣的走向</b>。<br>跟著三個提問走一遍，你會更懂自己杯裡的茶。</p>
-    <p class="en">Two questions decide almost everything — how dark it's fired, and which way it smells.</p>
+    <p class="en">Three questions: how dark it's fired, which way it smells, and when you're drinking it.</p>
   </section>
 
   <section class="stage">
@@ -231,7 +231,7 @@ const TEAS = {
     fire:22, aroma:80, soup:"#c25a2a"
   },
   redoolong: {
-    name:"紅烏龍", en:"Red Oolong", roast:"重發酵重焙 · 果蜜型",
+    name:"台東紅烏龍", en:"Taitung Red Oolong", roast:"重發酵重焙 · 果蜜型",
     tagline:"熟成果香裹著蜂蜜，圓潤飽滿。台東紅烏龍，重發酵與重焙火的完美平衡，數十小時低溫烘焙，琥珀透亮。",
     specs:[["發酵","重發酵"],["焙火","數十小時低溫焙"],["茶湯","琥珀透亮"],["產地","台東"]],
     chips:["熟成果香","蜂蜜甜","圓潤厚實","琥珀"],
@@ -239,7 +239,7 @@ const TEAS = {
     fire:72, aroma:85, soup:"#a8431f"
   },
   charcoal: {
-    name:"碳焙烏龍", en:"Charcoal Roasted Oolong", roast:"重焙火 · 炭韻型",
+    name:"炭焙烏龍", en:"Charcoal Roasted Oolong", roast:"重焙火 · 炭韻型",
     tagline:"炭火焦香，收在一絲沉穩的木質尾韻。傳統龍眼木炭焙，慢火細烘把苦澀轉化為溫潤焙香。",
     specs:[["發酵","中發酵"],["焙火","龍眼木重炭焙"],["茶湯","深琥珀"],["韻","木質尾韻"]],
     chips:["炭火焦香","木質尾韻","沉穩安定","溫潤焙香"],
@@ -265,8 +265,8 @@ const FLORAL = {
 /* ---------- Questions (flavor axes, not personality) ---------- */
 const QUESTIONS = [
   {
-    eyebrow:"Axis 01 / 焙火",
-    title:"先決定一件事 — 你想要哪種「重量」？",
+    eyebrow:"Roast · 焙火",
+    title:"先決定一件事 — 你想要哪種<span class=\"nb\">「重量」？</span>",
     sub:"焙火越深，茶越溫暖厚實；越輕，越清亮鮮活。",
     meter:["Light Fire","Dark Fire"],
     options:[
@@ -277,7 +277,7 @@ const QUESTIONS = [
     key:"roast"
   },
   {
-    eyebrow:"Axis 02 / 香氣",
+    eyebrow:"Aroma · 香氣",
     title:"再選香氣的走向 — 你被哪種味道吸引？",
     sub:"同樣的焙火程度，香氣方向會把你帶到不同的茶。",
     meter:["Floral","Honeyed"],
@@ -288,7 +288,7 @@ const QUESTIONS = [
     key:"aroma"
   },
   {
-    eyebrow:"Axis 03 / 場景",
+    eyebrow:"Moment · 場景",
     title:"最後一題 — 這杯茶陪你做什麼？",
     sub:"場景幫我們在相近的茶之間，挑出最對的那一支。",
     meter:["Refresh","Settle"],
@@ -355,8 +355,8 @@ function renderQuestion(){
     opts+=`<button class="choice" data-i="${i}">
       <span class="c-num">${String(i+1).padStart(2,'0')}</span>
       <span class="c-body">
-        <span class="c-label">${o.label}</span>
         <span class="c-zh">${o.zh}</span>
+        <span class="c-label">${o.label}</span>
         <span class="c-desc">${o.desc}</span>
       </span></button>`;
   });
@@ -396,12 +396,12 @@ function choose(i){
 /* 對應點單頁 MENU 的品項順序（「去點這杯」用） */
 const MENU_INDEX={dongding:0,qingxin:1,sijichun:2,charcoal:3,redoolong:4,honghei:5};
 
-const SHORT={qingxin:"青心",sijichun:"四季春",dongding:"凍頂",honghei:"蜜韻紅",redoolong:"紅烏龍",charcoal:"碳焙"};
+const SHORT={qingxin:"青心",sijichun:"四季春",dongding:"凍頂",honghei:"蜜韻紅",redoolong:"紅烏龍",charcoal:"炭焙"};
 
 /* draw the flavor map; highlight `key` */
 function renderMap(key){
   const svg=document.getElementById('map-svg');
-  const W=320,H=280, pad={l:24,r:16,t:16,b:30};
+  const W=320,H=280, pad={l:34,r:16,t:16,b:34};
   const x=v=>pad.l+(v/100)*(W-pad.l-pad.r);
   const y=v=>pad.t+(v/100)*(H-pad.t-pad.b); // aroma 0 (floral) at top
   let g='';
@@ -416,22 +416,24 @@ function renderMap(key){
   g+=`<line class="map-axis" x1="${pad.l}" y1="${H-pad.b}" x2="${W-pad.r}" y2="${H-pad.b}"/>`;
   g+=`<line class="map-axis" x1="${pad.l}" y1="${pad.t}" x2="${pad.l}" y2="${H-pad.b}"/>`;
   // axis labels (kept inside viewBox)
-  g+=`<text class="map-axlabel" x="${pad.l}" y="${H-6}">輕焙</text>`;
-  g+=`<text class="map-axlabel" x="${W-pad.r}" y="${H-6}" text-anchor="end">重焙</text>`;
-  g+=`<text class="map-axlabel" x="11" y="${pad.t+2}" transform="rotate(-90 11 ${pad.t+2})">花香</text>`;
-  g+=`<text class="map-axlabel" x="11" y="${H-pad.b}" transform="rotate(-90 11 ${H-pad.b})" text-anchor="end">蜜熟</text>`;
+  g+=`<text class="map-axlabel" x="${pad.l}" y="${H-8}">輕焙</text>`;
+  g+=`<text class="map-axlabel" x="${W-pad.r}" y="${H-8}" text-anchor="end">重焙</text>`;
+  g+=`<text class="map-axlabel" x="13" y="${pad.t+4}" transform="rotate(-90 13 ${pad.t+4})">花香</text>`;
+  g+=`<text class="map-axlabel" x="13" y="${H-pad.b}" transform="rotate(-90 13 ${H-pad.b})" text-anchor="end">蜜熟</text>`;
   // other teas
   for(const k in TEAS){
     if(k===key) continue;
     const t=TEAS[k];
-    g+=`<circle class="map-dot" cx="${x(t.fire)}" cy="${y(t.aroma)}" r="4"/>`;
-    g+=`<text class="map-dot-label" x="${x(t.fire)+7}" y="${y(t.aroma)+3}">${SHORT[k]}</text>`;
+    const dx=x(t.fire), flip = dx > W*0.62;   // 太靠右就把名字翻到左邊，不然會被切掉
+    g+=`<circle class="map-dot" cx="${dx}" cy="${y(t.aroma)}" r="4"/>`;
+    g+=`<text class="map-dot-label" x="${dx+(flip?-8:8)}" y="${y(t.aroma)+3.5}"${flip?' text-anchor="end"':''}>${SHORT[k]}</text>`;
   }
   // highlighted tea
   const t=TEAS[key];
   g+=`<circle class="map-you-ring" cx="${x(t.fire)}" cy="${y(t.aroma)}" r="7"/>`;
   g+=`<circle class="map-you" cx="${x(t.fire)}" cy="${y(t.aroma)}" r="6"/>`;
-  g+=`<text class="map-you-label" x="${x(t.fire)+9}" y="${y(t.aroma)+4}">${SHORT[key]}</text>`;
+  const yx=x(t.fire), yflip = yx > W*0.62;
+  g+=`<text class="map-you-label" x="${yx+(yflip?-11:11)}" y="${y(t.aroma)+4}"${yflip?' text-anchor="end"':''}>${SHORT[key]}</text>`;
   svg.innerHTML=g;
 }
 
