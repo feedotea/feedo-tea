@@ -675,7 +675,7 @@
         `聯絡電話：${v('bPhone')||blank}`,
         `外送地址：${v('bAddr')||blank}`,
         `外送距離：${distText}`,
-        `付款方式：${v('bPay')?v('bPay')+'（先付款）':blank}`,
+        `付款方式：${v('bPay')||blank}`,
         ...company,
         '----------------',
         '預訂品項：',
