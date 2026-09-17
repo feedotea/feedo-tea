@@ -171,7 +171,7 @@
   .cup .cupfoam.on .fchk{background:var(--accent);}
   .cup .cupfoam .ftxt{flex:1;font-family:'Old Standard TT';font-size:12.5px;color:var(--ink-soft);}
   .cup .cupfoam .fhint{font-style:italic;font-size:10.5px;opacity:.7;}
-  .cup .cupfoam .fpr{font-family:'Oswald',sans-serif;font-weight:600;font-size:13px;color:var(--accent);}
+  .cup .cupfoam .fpr{font-family:'Playfair Display',serif;font-weight:700;font-size:14px;color:var(--accent);}
   .mrow{display:flex;align-items:center;gap:11px;padding:11px 2px;border-bottom:1px dotted rgba(28,24,19,.5);cursor:pointer;transition:background .15s;}
   .mrow:hover{background:rgba(110,36,21,.06);}
   .mrow .box{width:22px;height:22px;border:2px solid var(--ink);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Special Elite';font-size:15px;color:var(--accent);background:var(--paper-light);transition:.15s;}
@@ -185,12 +185,12 @@
     .mrow .nm .zh,.mrow .nm .en{display:block;}
     .mrow .nm .en{line-height:1.35;}
   }
-  .mrow .pr{font-family:'Oswald',sans-serif;font-weight:600;font-size:17px;white-space:nowrap;}
+  .mrow .pr{font-family:'Playfair Display',serif;font-weight:700;font-size:18px;white-space:nowrap;}
   .qty{display:none;align-items:center;gap:7px;margin-right:4px;}
   .mrow.on .qty{display:flex;}
-  .qty button{width:22px;height:22px;border:1.5px solid var(--ink);background:var(--paper-light);font-family:'Oswald';font-weight:600;font-size:14px;cursor:pointer;color:var(--ink);display:flex;align-items:center;justify-content:center;line-height:1;}
+  .qty button{width:22px;height:22px;border:1.5px solid var(--ink);background:var(--paper-light);font-family:'Special Elite',monospace;font-size:15px;cursor:pointer;color:var(--ink);display:flex;align-items:center;justify-content:center;line-height:1;}
   .qty button:hover{background:var(--accent);color:var(--paper);border-color:var(--accent);}
-  .qty .num{font-family:'Oswald';font-weight:600;font-size:15px;min-width:16px;text-align:center;}
+  .qty .num{font-family:'Special Elite',monospace;font-size:15px;min-width:18px;text-align:center;}
   .mtotal{display:flex;justify-content:space-between;align-items:baseline;border-top:2px solid var(--rule);margin-top:10px;padding-top:12px;}
   .mtotal .lbl{font-family:'Playfair Display',serif;font-weight:700;font-size:18px;letter-spacing:2px;text-transform:uppercase;}
   .mtotal .lbl small{display:block;font-family:'Special Elite';font-size:10px;color:var(--ink-soft);text-transform:none;letter-spacing:0;margin-top:2px;}
@@ -243,7 +243,7 @@
   .tier{border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:12px 8px;text-align:center;cursor:pointer;transition:.15s;}
   .tier:hover{background:rgba(110,36,21,.06);}
   .tier .tk{font-family:'Special Elite';font-size:11px;letter-spacing:1px;color:var(--ink-soft);}
-  .tier .tm{font-family:'Oswald',sans-serif;font-weight:600;font-size:21px;color:var(--accent);line-height:1.2;}
+  .tier .tm{font-family:'Playfair Display',serif;font-weight:700;font-size:23px;color:var(--accent);line-height:1.2;}
   .tier .tm small{font-family:'Noto Serif TC',serif;font-size:11px;font-weight:400;color:var(--ink-soft);margin-right:3px;}
   .tier.on{background:var(--accent);}
   .tier.on .tk,.tier.on .tm,.tier.on .tm small{color:var(--paper);}
@@ -269,17 +269,17 @@
 
   /* 茶單列：點一下開選規格視窗，方塊顯示已點杯數 */
   .mtip{text-align:center;font-family:'Special Elite';font-size:11px;letter-spacing:1px;color:var(--accent);padding:2px 0 4px;}
-  .mrow .box{width:28px;height:26px;font-family:'Oswald',sans-serif;font-weight:600;font-size:14px;}
+  .mrow .box{width:28px;height:26px;font-family:'Special Elite',monospace;font-size:14px;}
   .mrow:not(.on) .box{color:var(--ink-soft);}
   .mrow:focus-visible{outline:2px solid var(--accent);outline-offset:-2px;}
 
   /* 杯數加減（視窗與訂單共用） */
   .gqty{display:flex;align-items:center;gap:5px;font-family:'Noto Serif TC',serif;font-size:13px;color:var(--ink);}
-  .gqty button{width:28px;height:28px;padding:0;border:1.5px solid var(--ink);background:var(--paper-light);font-family:'Oswald';font-weight:600;font-size:16px;line-height:1;cursor:pointer;color:var(--ink);}
+  .gqty button{width:28px;height:28px;padding:0;border:1.5px solid var(--ink);background:var(--paper-light);font-family:'Special Elite',monospace;font-size:16px;line-height:1;cursor:pointer;color:var(--ink);}
   .gqty button:hover{background:var(--accent);color:var(--paper);border-color:var(--accent);}
-  .gqty input{width:64px;height:34px;text-align:center;font-family:'Oswald';font-weight:600;font-size:17px;border:1.5px solid var(--ink);background:#fff;color:var(--ink);border-radius:0;-moz-appearance:textfield;}
+  .gqty input{width:64px;height:34px;text-align:center;font-family:'Special Elite',monospace;font-size:17px;border:1.5px solid var(--ink);background:#fff;color:var(--ink);border-radius:0;-moz-appearance:textfield;}
   .gqty input::-webkit-inner-spin-button,.gqty input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0;}
-  .gqty .num{font-family:'Oswald';font-weight:600;font-size:15px;min-width:28px;text-align:center;}
+  .gqty .num{font-family:'Special Elite',monospace;font-size:15px;min-width:30px;text-align:center;}
 
   /* 品項選擇視窗 */
   .item-box{max-width:460px;max-height:calc(100vh - 40px);overflow-y:auto;padding:26px 22px 20px;}
@@ -315,7 +315,7 @@
   .cl-spec{font-family:'Noto Serif TC',serif;font-size:12px;color:var(--ink-soft);}
   .cl-ops button{background:none;border:none;padding:2px 12px 2px 0;font-family:'Special Elite';font-size:11px;color:var(--ink-soft);text-decoration:underline;cursor:pointer;}
   .cl-ops button:hover{color:var(--accent);}
-  .cl-amt{font-family:'Oswald',sans-serif;font-weight:600;font-size:15px;min-width:50px;text-align:right;}
+  .cl-amt{font-family:'Playfair Display',serif;font-weight:700;font-size:16px;min-width:50px;text-align:right;}
   .cl-empty{font-family:'Noto Serif TC',serif;font-size:12.5px;color:var(--ink-soft);text-align:center;padding:14px 0;}
   .mmin{margin-top:10px;padding:7px 10px;font-family:'Noto Serif TC',serif;font-size:12.5px;text-align:center;border:1px dashed var(--accent);color:var(--accent);}
   .mmin.ok{border-style:solid;background:rgba(110,36,21,.06);}
@@ -368,13 +368,13 @@
   .gmembers{border:1px solid var(--rule);margin-top:18px;padding:14px 18px;}
   .gm-h{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;border-bottom:2px solid var(--rule);padding-bottom:8px;}
   .gm-h b{font-family:'Noto Serif TC',serif;font-size:16px;}
-  .gm-h span{font-family:'Oswald',sans-serif;font-size:14px;color:var(--accent);}
+  .gm-h span{font-family:'Playfair Display',serif;font-weight:700;font-size:15px;color:var(--accent);}
   .gm-h button{margin-left:auto;background:none;border:none;font-family:'Special Elite';font-size:11px;color:var(--ink-soft);text-decoration:underline;cursor:pointer;}
   #gmList{list-style:none;}
   .gm{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:10px 0;border-bottom:1px dotted rgba(28,24,19,.4);}
   .gm-n{font-family:'Noto Serif TC',serif;font-weight:600;font-size:14px;}
   .gm-n i{font-style:normal;font-size:10.5px;background:var(--accent);color:var(--paper);padding:1px 6px;margin-left:6px;vertical-align:2px;}
-  .gm-amt{font-family:'Oswald',sans-serif;font-weight:600;font-size:15px;text-align:right;}
+  .gm-amt{font-family:'Playfair Display',serif;font-weight:700;font-size:16px;text-align:right;}
   .gm-items{grid-column:1/-1;font-family:'Noto Serif TC',serif;font-size:12.5px;color:var(--ink-soft);line-height:1.6;}
   .gm-ops{grid-column:1/-1;}
   .gm-ops button{background:none;border:none;padding:2px 12px 2px 0;font-family:'Special Elite';font-size:11px;color:var(--ink-soft);text-decoration:underline;cursor:pointer;}
@@ -392,7 +392,7 @@
   @media(max-width:640px){.ad:nth-child(3n){border-right:1px solid var(--rule);}.ad:nth-child(2n){border-right:none;}}
   .ad .label{font-family:'Special Elite';font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--accent);}
   .ad h5{font-family:'Playfair Display',serif;font-weight:900;font-size:20px;text-transform:uppercase;margin:6px 0;line-height:1;}
-  .ad .price{font-family:'Oswald',sans-serif;font-weight:700;font-size:22px;}
+  .ad .price{font-family:'Playfair Display',serif;font-weight:700;font-size:23px;}
   .ad .desc{font-family:'Old Standard TT';font-size:11px;font-style:italic;color:var(--ink-soft);margin-top:4px;line-height:1.4;}
 
   /* 店家資訊 (報頭式) */
@@ -405,7 +405,7 @@
   .irow{display:flex;gap:12px;margin-bottom:9px;font-size:13px;line-height:1.5;}
   .irow .k{font-family:'Special Elite';font-size:10px;letter-spacing:1px;text-transform:uppercase;min-width:62px;color:var(--ink-soft);padding-top:2px;}
   .hrow{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px dotted rgba(28,24,19,.4);font-size:13px;}
-  .hrow span:last-child{font-family:'Oswald',sans-serif;}
+  .hrow span:last-child{font-family:'Special Elite',monospace;font-size:13px;}
   .ig-link{display:inline-block;margin-top:8px;font-family:'Special Elite';font-size:12px;letter-spacing:1px;color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent);padding-bottom:1px;}
 
   /* 報尾 */
