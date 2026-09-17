@@ -346,8 +346,19 @@
     border:1.5px dashed var(--accent);background:rgba(110,36,21,.04);color:var(--ink);cursor:pointer;font-family:'Noto Serif TC',serif;transition:.15s;}
   .gstart b{font-size:16px;color:var(--accent);}
   .gstart span{font-size:12px;color:var(--ink-soft);}
+  /* 手機沒有 hover，光靠虛線框看不出可以點，補一顆實心按鈕當提示 */
+  .gstart-cta{display:inline-block;margin-top:9px;font-style:normal;
+    background:var(--accent);color:var(--paper);font-size:13px;font-weight:600;
+    letter-spacing:1px;padding:8px 20px;transition:.15s;}
   .gstart:hover{background:var(--accent);}
   .gstart:hover b,.gstart:hover span{color:var(--paper);}
+  .gstart:hover .gstart-cta{background:var(--paper);color:var(--accent);}
+  @media(max-width:600px){
+    .gstart{padding:16px 14px;}
+    .gstart b{font-size:17px;}
+    .gstart span{font-size:12.5px;line-height:1.6;}
+    .gstart-cta{font-size:14px;padding:10px 24px;margin-top:11px;}
+  }
   .gbar{position:relative;border:3px double var(--rule);background:var(--paper-light);padding:24px 20px 14px;margin:8px 0 22px;text-align:center;}
   .gb-stamp{position:absolute;top:-12px;left:50%;transform:translateX(-50%) rotate(-1.5deg);background:var(--accent);color:var(--paper);
     font-family:'Special Elite';font-size:11px;letter-spacing:3px;padding:4px 14px;white-space:nowrap;}
