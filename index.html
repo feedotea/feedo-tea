@@ -339,7 +339,7 @@
     {cat:"Fresh Milk Tea 鮮奶茶", en:"Earl Grey Milk Tea",           zh:"伯爵鮮奶茶",       price:60, foam:true},
     {cat:"Fresh Milk Tea 鮮奶茶", en:"Jasmine Green Milk Tea",       zh:"茉莉鮮奶茶",       price:65, foam:true},
     {cat:"Fresh Milk Tea 鮮奶茶", en:"Charcoal Roasted Oolong Milk Tea", zh:"炭焙烏龍鮮奶茶", price:75, foam:true},
-    // 北海道厚奶茶：四葉北海道全脂奶粉，甜度固定、不加奶蓋
+    // 北海道厚奶茶：四葉北海道全脂奶粉，甜度冰塊都固定、不加奶蓋
     {cat:"Hokkaido Milk Tea 北海道厚奶茶", en:"Assam Hokkaido Milk Tea",           zh:"阿薩姆厚奶茶",       price:95, foam:false, fixedSweet:true},
     {cat:"Hokkaido Milk Tea 北海道厚奶茶", en:"Assam Chocolate Hokkaido Milk Tea", zh:"阿薩姆巧克力厚奶茶", price:95, foam:false, fixedSweet:true},
     {cat:"Hokkaido Milk Tea 北海道厚奶茶", en:"Earl Grey Hokkaido Milk Tea",       zh:"伯爵厚奶茶",         price:95, foam:false, fixedSweet:true},
@@ -347,7 +347,7 @@
   // 甜度/冰度選項 (照菜單)
   const SWEET=["無糖","1分甜","3分甜","5分甜","7分甜"];
   const ICE=["去冰","3分冰","5分冰"];
-  const FIXED_SWEET="固定甜度";        // 甜度固定的品項（fixedSweet）一律用這個字，訂單文字看得出來
+  const FIXED_SWEET="固定甜度", FIXED_ICE="固定冰塊";   // 甜度冰塊固定的品項（fixedSweet）一律用這兩個字，訂單文字看得出來
   const FOAM_OK_ICE=["3分冰","5分冰"]; // 奶蓋僅限微冰/半冰(3分/5分冰)
   const MAX_QTY = 999;                 // 單一規格最多杯數
 
@@ -484,8 +484,8 @@
   function openItem(i,editIdx){
     const m=MENU[i], src=editIdx>=0 ? lines[editIdx] : null;
     draft = src ? Object.assign({}, src, {edit:editIdx})
-                : {i, sweet:m.fixedSweet?FIXED_SWEET:lastSpec.sweet, ice:lastSpec.ice, foam:false, qty:1, note:'', edit:-1};
-    if(m.fixedSweet) draft.sweet=FIXED_SWEET;
+                : {i, sweet:m.fixedSweet?FIXED_SWEET:lastSpec.sweet, ice:m.fixedSweet?FIXED_ICE:lastSpec.ice, foam:false, qty:1, note:'', edit:-1};
+    if(m.fixedSweet){ draft.sweet=FIXED_SWEET; draft.ice=FIXED_ICE; }
     $id('itemTitle').textContent=m.zh;
     $id('itemEn').textContent=`${m.en} · $${m.price}`;
     $id('itemNote').value=draft.note;
@@ -504,7 +504,7 @@
     }).join('');
     $id('itemOpts').innerHTML = m.addon ? '' : `
       <div class="opt"><div class="opt-l">甜度 <span>Sweetness</span></div><div class="opt-c">${m.fixedSweet?`<button type="button" class="ochip wide sel" data-act="fixed">固定甜度<small>厚奶茶甜度固定，不另調整</small></button>`:chips('sweet',SWEET)}</div></div>
-      <div class="opt"><div class="opt-l">冰度 <span>Ice</span></div><div class="opt-c">${chips('ice',ICE)}</div></div>
+      <div class="opt"><div class="opt-l">冰度 <span>Ice</span></div><div class="opt-c">${m.fixedSweet?`<button type="button" class="ochip wide sel" data-act="fixed">固定冰塊<small>厚奶茶冰塊固定，不另調整</small></button>`:chips('ice',ICE)}</div></div>
       ${m.foam?`<div class="opt"><div class="opt-l">加料 <span>Add-on</span></div><div class="opt-c">
         <button type="button" class="ochip wide${draft.foam?' sel':''}" data-act="foam">${draft.foam?'✓ ':''}加奶蓋 Milk Foam +$${FOAM_PRICE}<small>僅限 3 分冰／5 分冰</small></button></div></div>`:''}`;
     $id('itemSum').textContent='$'+(lineUnit(draft)*draft.qty).toLocaleString();
@@ -539,7 +539,7 @@
       const same=lines.find(x=>x.i===L.i&&x.sweet===L.sweet&&x.ice===L.ice&&x.foam===L.foam&&x.note===L.note);
       if(same) same.qty=clampQty(same.qty+L.qty); else lines.push(L);
     }
-    lastSpec={sweet:MENU[L.i].fixedSweet?lastSpec.sweet:L.sweet, ice:L.ice};
+    if(!MENU[L.i].fixedSweet) lastSpec={sweet:L.sweet, ice:L.ice};
     closeItem(); render();
     toast(`${edit>=0?'已更新':'已加入'}：${MENU[L.i].zh}${L.foam?' +奶蓋':''} ×${L.qty}`);
   };
