@@ -347,6 +347,10 @@
   // 甜度/冰度選項 (照菜單)
   const SWEET=["無糖","1分甜","3分甜","5分甜","7分甜"];
   const ICE=["去冰","3分冰","5分冰"];
+  // 分類標題底下的一句介紹（沒有的分類就不顯示）
+  const CAT_NOTE={
+    "Hokkaido Milk Tea 北海道厚奶茶":"四葉北海道全脂奶粉：北海道酪農合作社的生乳直接乾燥，成分只有牛奶，沒有植物油、香料。奶香厚、有分量，卻不糊嘴。甜度、冰塊固定。",
+  };
   const FIXED_SWEET="固定甜度", FIXED_ICE="固定冰塊";   // 甜度冰塊固定的品項（fixedSweet）一律用這兩個字，訂單文字看得出來
   const FOAM_OK_ICE=["3分冰","5分冰"]; // 奶蓋僅限微冰/半冰(3分/5分冰)
   const MAX_QTY = 999;                 // 單一規格最多杯數
@@ -404,6 +408,7 @@
     // 分類標題
     if(m.cat!==lastCat){
       const h=document.createElement('li');h.className='mcat';h.textContent=m.cat;mlist.appendChild(h);lastCat=m.cat;
+      if(CAT_NOTE[m.cat]){ const d=document.createElement('li');d.className='mnote';d.textContent=CAT_NOTE[m.cat];mlist.appendChild(d); }
     }
     const li=document.createElement('li');li.className='mrow';li.dataset.i=i;
     li.tabIndex=0; li.setAttribute('role','button');

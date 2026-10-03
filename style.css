@@ -150,6 +150,7 @@
     text-align:center;text-transform:uppercase;letter-spacing:1px;color:var(--accent);
     padding:16px 0 6px;margin-top:6px;border-bottom:2px solid var(--rule);}
   .mcat:first-child{margin-top:0;padding-top:4px;}
+  .mnote{font-size:12.5px;line-height:1.6;color:var(--ink-2,#5a524a);text-align:center;padding:8px 10px 2px;letter-spacing:.3px;}
   /* 加奶蓋選項列 (舊版保留相容) */
   .mfoam{display:none;}
   /* 每杯客製容器 */
